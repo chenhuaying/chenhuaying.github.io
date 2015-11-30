@@ -2,35 +2,35 @@
 <html class="no-js" lang="zh-CN">
 <head>
   <base href="http://chenhuaying.github.io/">
-  <title>about - ChenHuaying&#39;s Blog</title>
+  <title>JS Object Life - ChenHuaying&#39;s Blog</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="description" content="about">
+<meta name="description" content="JS Object Life">
 <meta name="author" content="Cyrill Schumacher">
 <meta name="publisher" content="Cyrill Schumacher">
 <meta name="generator" content="http://gohugo.io/"/>
 
-<meta itemprop="name" content="ChenHuaying&#39;s Blog - about">
-<meta itemprop="description" content="about">
+<meta itemprop="name" content="ChenHuaying&#39;s Blog - JS Object Life">
+<meta itemprop="description" content="JS Object Life">
 <meta itemprop="image" content="http://chenhuaying.github.io/wp-content/uploads/schumacher.png">
 
-<meta property="og:title" content="about - ChenHuaying&#39;s Blog" />
+<meta property="og:title" content="JS Object Life - ChenHuaying&#39;s Blog" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://chenhuaying.github.io/about/" />
+<meta property="og:url" content="http://chenhuaying.github.io/post/2015/2015-09-08-js-object-life/" />
 <meta property="og:image" content="http://chenhuaying.github.io/wp-content/uploads/schumacher.png" />
-<meta property="og:description" content="about" />
+<meta property="og:description" content="JS Object Life" />
 
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@flyingpig">
-<meta name="twitter:title" content="about - ChenHuaying&#39;s Blog">
-<meta name="twitter:description" content="about">
+<meta name="twitter:title" content="JS Object Life - ChenHuaying&#39;s Blog">
+<meta name="twitter:description" content="JS Object Life">
 <meta name="twitter:creator" content="@flyingpig">
 <meta name="twitter:image" content="http://chenhuaying.github.io/wp-content/uploads/huaying.png">
 
   <script>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
-  <link rel="canonical" href="http://chenhuaying.github.io/about/">
-  <link rel='shortlink' href="http://chenhuaying.github.io/about/"/>
+  <link rel="canonical" href="http://chenhuaying.github.io/post/2015/2015-09-08-js-object-life/">
+  <link rel='shortlink' href="http://chenhuaying.github.io/post/2015/2015-09-08-js-object-life/"/>
   <link rel="shortcut icon" href="http://chenhuaying.github.io/wp-content/uploads/favicon.png"/>
   
 
@@ -139,6 +139,10 @@
             <div class="page-title pad group">
               <ul class="meta-single group">
                 
+                <li class="category">
+                  <a href="categories/%e6%8a%80%e6%9c%af%e6%96%87%e7%ab%a0" rel="category tag">技术文章</a>
+                </li>
+                
               </ul>
             </div>
 
@@ -148,12 +152,12 @@
                   class="post type-post status-publish format-standard has-post-thumbnail hentry category-australien tag-bondi-beach tag-city2surf tag-sydney">
                 <div class="post-inner group">
 
-                  <h1 class="post-title">about</h1>
+                  <h1 class="post-title">JS Object Life</h1>
 
                   <p class="post-byline">
-                    by  · 2015年11月25日 · 25 Words ·
-                    ~1min reading time |
-                    <a href="https://github.com/chenhuaying/hugo-blog/blob/master/content/about.md"
+                    by  · 2015年09月08日 · 773 Words ·
+                    ~2min reading time |
+                    <a href="https://github.com/chenhuaying/hugo-blog/blob/master/content/post/2015/2015-09-08-js-object-life.markdown"
                        target="_blank">Improve on <i class="fa fa-github"></i></a>
                   </p>
 
@@ -164,9 +168,85 @@
                       
                       
 
-<h2 id="about-me:6083a88ee3411b0d17ce02d738f69d47">About Me</h2>
+<h3 id="prototype:3b581fb81ec92a6bced8ae098d7b829b">Prototype</h3>
 
-<p>一个不喜欢写博客的人，开始学习总结并整理成文。</p>
+<p>JavaScript是基于原型的面向对象语言，基本上每个Object（对象）都有一个Prototype（原型），在JS中原型也是一种对象，对象中各个属性的都是来源于它，在对象中引用一个属性时，会向上递归的查找原型。
+Object.prototype是大多数对象的原型</p>
+
+<ol>
+<li><code>Object.create(prototype)</code>以一个原型为基础来创建一个对象</li>
+<li><code>Object.getPrototypeOf(object)</code>获取对象的原型</li>
+</ol>
+
+<pre><code class="language-javascript">function RTextCell(text) {
+  TextCell.call(this, text);
+}
+RTextCell.prototype = Object.create(TextCell.prototype);
+</code></pre>
+
+<ul>
+<li>构造函数通常以大写字母开头。</li>
+</ul>
+
+<p>上面是继承机制的一个实例，RTextCell的构造函数调用其父对象TextCell中的构造函数，这样就继承了TextCell的所有属性。</p>
+
+<p>RTextCell的prototype继承TextCelll的prototype，从RTextCell产生的实例就会可以调用TextCell原型中包含的属性。</p>
+
+<p>无原型的构造函数<code>Object.create(prototype)</code></p>
+
+<h3 id="interface:3b581fb81ec92a6bced8ae098d7b829b">Interface</h3>
+
+<pre><code class="language-javascript">Object.defineProperty(TextCell.prototype, &quot;heightProp&quot;, {
+    get: function() { return this.text.length; },
+    set: function(value) { this.text.length = value; }
+  });
+var cell = new TextCell(&quot;no\nway&quot;);
+console.log(cell.heightProp);
+// → 2
+cell.heightProp = 100;
+console.log(cell.heightProp);
+// → 100, 如果没有set，此处输出为2，执行不会报错，简单的忽略该操作
+</code></pre>
+
+<pre><code class="language-javascript">Object.defineProperty(Object.prototype, &quot;hiddenNonsense&quot;,
+    {enumerable: false, value: &quot;hi&quot;});
+for (var name in map)
+  console.log(name);
+// → pizza
+// → touched tree
+// 此处不会出现hiddenNonsense，设置enumerable属性为false
+console.log(map.hiddenNonsense);
+// → hi, hiddenNonsense可以访问，只是不再for/in loop中显示
+console.log(&quot;hiddenNonsense&quot; in map)
+// →true, 在in操作中仍然可见
+</code></pre>
+
+<p>三个参数
+Object.defineProperty(<strong>ObjectName</strong>.prototype, <strong>property name</strong>, <strong>options</strong>)
+options是一个字典型的参数，其选项有：
+1. enumerable, 是否可以在 for/in loop中可见，但在<strong>in</strong>操作中仍可见
+2. value, 该property的值
+3. setl/get, 读写属性的函数</p>
+
+<pre><code class="language-javascript">var pile = {
+  elements: [&quot;eggshell&quot;, &quot;orange peel&quot;, &quot;worm&quot;],
+  get height() {
+    return this.elements.length;
+  },
+  set height(value) {
+    console.log(&quot;Ignoring attempt to set height to&quot;, value);
+  }
+};
+
+console.log(pile.height);
+// → 3
+pile.height = 100;
+// → Ignoring attempt to set height to 100
+</code></pre>
+
+<ul>
+<li>set/get 在这里相当于是<strong>function</strong>这样的标识符, 后面没有冒号，与*Object.defineProperty*中的有区别，后者是*map*中的一个属性，所以需要加&rdquo;:&rdquo;</li>
+</ul>
 
                       
                     </div>
@@ -183,6 +263,8 @@
 
               <p class="post-tags">
                 <span>Tags:</span>
+                
+                <a rel="tag" href="http://chenhuaying.github.io/tags/Javascript">Javascript</a>
                 
               </p>
 
@@ -212,6 +294,22 @@
         
         
         
+            <li class="related post-hover">
+                <article class="post type-post status-publish format-standard has-post-thumbnail hentry">
+
+                  <div class="related-inner">
+                    <h4 class="post-title">
+                      <a href="http://chenhuaying.github.io/post/2015/2015-09-09-simple-webrtc/" rel="bookmark"
+                         title="Simple WebRTC">Simple WebRTC</a>
+                    </h4>
+                    <div class="post-meta group">
+                      <p class="post-date">9 September 2015</p>
+                    </div>
+                  </div>
+                </article>
+
+            </li>
+        
     
     </ul>
 
@@ -221,9 +319,9 @@
   <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'chenhuaying';
-    var disqus_identifier = 'http:\/\/chenhuaying.github.io\/about\/';
-    var disqus_title = 'about';
-    var disqus_url = 'http:\/\/chenhuaying.github.io\/about\/';
+    var disqus_identifier = 'http:\/\/chenhuaying.github.io\/post\/2015\/2015-09-08-js-object-life\/';
+    var disqus_title = 'JS Object Life';
+    var disqus_url = 'http:\/\/chenhuaying.github.io\/post\/2015\/2015-09-08-js-object-life\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -281,19 +379,13 @@
     <ul class="post-nav group">
       <li class="next">
         
-        <a href="http://chenhuaying.github.io/post/2015/2015-10-21-something-with-golang/" rel="next">
-          <i class="fa fa-chevron-right"></i>
-          <strong>Next post</strong>
-          <span>Something With Golang</span>
-        </a>
-        
       </li>
       <li class="previous">
         
-        <a href="http://chenhuaying.github.io/post/2015/2015-11-28-Helloworld/" rel="prev">
+        <a href="http://chenhuaying.github.io/post/2015/2015-09-09-simple-webrtc/" rel="prev">
           <i class="fa fa-chevron-left"></i>
           <strong>Previous Post</strong>
-          <span>Hello world</span>
+          <span>Simple WebRTC</span>
         </a>
         
       </li>
@@ -367,27 +459,9 @@
         <p class="post-tags">
           
               
-              <a rel="tag" href="tags/go/"
-                 class="tag-link-2"
-                 title="2 Posts">go</a>
+                <a rel="tag" href="tags/javascript/">Javascript</a>
               
-              <a rel="tag" href="tags/javascript/"
-                 class="tag-link-2"
-                 title="2 Posts">javascript</a>
-              
-              <a rel="tag" href="tags/webrtc/"
-                 class="tag-link-1"
-                 title="1 Posts">webrtc</a>
-              
-              <a rel="tag" href="tags/%e5%bc%80%e7%af%87/"
-                 class="tag-link-1"
-                 title="1 Posts">开篇</a>
-              
-              <a rel="tag" href="tags/%e6%84%9f%e6%83%b3/"
-                 class="tag-link-1"
-                 title="1 Posts">感想</a>
-              
-          
+            
         </p>
       </div>
     </div>

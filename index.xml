@@ -49,5 +49,194 @@
 </description>
         </item>
         
+        <item>
+            <title>Something With Golang</title>
+            <link>http://chenhuaying.github.io/post/2015/2015-10-21-something-with-golang/</link>
+            <pubDate>Wed, 21 Oct 2015 17:11:27 CST</pubDate>
+            <author>Cyrill at Schumacher dot fm</author>
+            <guid>http://chenhuaying.github.io/post/2015/2015-10-21-something-with-golang/</guid>
+            <description>
+
+&lt;h3 id=&#34;glog:0ba069f7990e94ac53e229e899745a36&#34;&gt;glog&lt;/h3&gt;
+
+&lt;h4 id=&#34;vmodule-选项:0ba069f7990e94ac53e229e899745a36&#34;&gt;vmodule 选项&lt;/h4&gt;
+
+&lt;h3 id=&#34;数组vs切片:0ba069f7990e94ac53e229e899745a36&#34;&gt;数组vs切片&lt;/h3&gt;
+
+&lt;p&gt;数组与切片不是一个类型，在以切片为参数的函数时，需要将数组转换为切片, 方法如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;array := [...]int{1, 2, 3}
+func testFunc(a []int) {
+  // do something
+}
+
+testFunc(array[:])
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        </item>
+        
+        <item>
+            <title>Golang Struct Reset</title>
+            <link>http://chenhuaying.github.io/post/2015/2015-09-24-golang-struct-reset/</link>
+            <pubDate>Thu, 24 Sep 2015 12:20:03 CST</pubDate>
+            <author>Cyrill at Schumacher dot fm</author>
+            <guid>http://chenhuaying.github.io/post/2015/2015-09-24-golang-struct-reset/</guid>
+            <description>&lt;p&gt;直接零赋值&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;type mystrut struct {
+	name string
+	data interface{}
+}
+
+ins := &amp;amp;mystruct{
+	name: &amp;quot;Golang newbie&amp;quot;
+	data: &amp;quot;string data&amp;quot;
+}
+
+ins = &amp;amp;mystruct{}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或者用反射(&lt;strong&gt;reflect&lt;/strong&gt;)清零&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func clear(v interface{}) {
+	p := reflect.ValueOf(v).Elem()
+	p.Set(reflect.Zero(p.Type()))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果传入的参数不是指针会直接pannic&lt;/p&gt;
+</description>
+        </item>
+        
+        <item>
+            <title>Simple WebRTC</title>
+            <link>http://chenhuaying.github.io/post/2015/2015-09-09-simple-webrtc/</link>
+            <pubDate>Wed, 09 Sep 2015 17:10:18 CST</pubDate>
+            <author>Cyrill at Schumacher dot fm</author>
+            <guid>http://chenhuaying.github.io/post/2015/2015-09-09-simple-webrtc/</guid>
+            <description>
+
+&lt;h3 id=&#34;step1:45182077ebf5fde33b240d908544e8a6&#34;&gt;Step1&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;html-&amp;gt;body中添加&lt;code&gt;&amp;lt;video /&amp;gt;&lt;/code&gt;，在JS中用&lt;code&gt;document.querySelector(&amp;quot;video&amp;quot;);&lt;/code&gt;可以获取到该标签&lt;/li&gt;
+&lt;li&gt;JS中添加如下代码既可以操作视频流&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var constrains = {video:  {mandatory: {
+      maxWidth: 640,
+      maxHeight: 360 
+}}};
+
+function successCallback(localMediaStream) {
+    window.stream = localMediaStream;
+    var video = document.querySelector(&amp;quot;video&amp;quot;);
+    video.src = window.URL.createObjectURL(localMediaStream);
+    video.play();
+}
+
+function errorCallback(error) {
+    console.log(&amp;quot;navigator.getUserMedia error: &amp;quot;, error);
+}
+
+getUserMedia(constrains, successCallback, errorCallback);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;window.stream = localMediaStream;&lt;/code&gt; 将stream导出到&lt;strong&gt;window&lt;/strong&gt;中，可以省略&lt;/p&gt;
+
+&lt;p&gt;这一步只是设置本地视频的基本步骤，显示如何使用本地摄像头，还不牵涉到端对端的交互。&lt;/p&gt;
+</description>
+        </item>
+        
+        <item>
+            <title>JS Object Life</title>
+            <link>http://chenhuaying.github.io/post/2015/2015-09-08-js-object-life/</link>
+            <pubDate>Tue, 08 Sep 2015 18:30:12 CST</pubDate>
+            <author>Cyrill at Schumacher dot fm</author>
+            <guid>http://chenhuaying.github.io/post/2015/2015-09-08-js-object-life/</guid>
+            <description>
+
+&lt;h3 id=&#34;prototype:3b581fb81ec92a6bced8ae098d7b829b&#34;&gt;Prototype&lt;/h3&gt;
+
+&lt;p&gt;JavaScript是基于原型的面向对象语言，基本上每个Object（对象）都有一个Prototype（原型），在JS中原型也是一种对象，对象中各个属性的都是来源于它，在对象中引用一个属性时，会向上递归的查找原型。
+Object.prototype是大多数对象的原型&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Object.create(prototype)&lt;/code&gt;以一个原型为基础来创建一个对象&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Object.getPrototypeOf(object)&lt;/code&gt;获取对象的原型&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function RTextCell(text) {
+  TextCell.call(this, text);
+}
+RTextCell.prototype = Object.create(TextCell.prototype);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;构造函数通常以大写字母开头。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;上面是继承机制的一个实例，RTextCell的构造函数调用其父对象TextCell中的构造函数，这样就继承了TextCell的所有属性。&lt;/p&gt;
+
+&lt;p&gt;RTextCell的prototype继承TextCelll的prototype，从RTextCell产生的实例就会可以调用TextCell原型中包含的属性。&lt;/p&gt;
+
+&lt;p&gt;无原型的构造函数&lt;code&gt;Object.create(prototype)&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;interface:3b581fb81ec92a6bced8ae098d7b829b&#34;&gt;Interface&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Object.defineProperty(TextCell.prototype, &amp;quot;heightProp&amp;quot;, {
+    get: function() { return this.text.length; },
+    set: function(value) { this.text.length = value; }
+  });
+var cell = new TextCell(&amp;quot;no\nway&amp;quot;);
+console.log(cell.heightProp);
+// → 2
+cell.heightProp = 100;
+console.log(cell.heightProp);
+// → 100, 如果没有set，此处输出为2，执行不会报错，简单的忽略该操作
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Object.defineProperty(Object.prototype, &amp;quot;hiddenNonsense&amp;quot;,
+    {enumerable: false, value: &amp;quot;hi&amp;quot;});
+for (var name in map)
+  console.log(name);
+// → pizza
+// → touched tree
+// 此处不会出现hiddenNonsense，设置enumerable属性为false
+console.log(map.hiddenNonsense);
+// → hi, hiddenNonsense可以访问，只是不再for/in loop中显示
+console.log(&amp;quot;hiddenNonsense&amp;quot; in map)
+// →true, 在in操作中仍然可见
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;三个参数
+Object.defineProperty(&lt;strong&gt;ObjectName&lt;/strong&gt;.prototype, &lt;strong&gt;property name&lt;/strong&gt;, &lt;strong&gt;options&lt;/strong&gt;)
+options是一个字典型的参数，其选项有：
+1. enumerable, 是否可以在 for/in loop中可见，但在&lt;strong&gt;in&lt;/strong&gt;操作中仍可见
+2. value, 该property的值
+3. setl/get, 读写属性的函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var pile = {
+  elements: [&amp;quot;eggshell&amp;quot;, &amp;quot;orange peel&amp;quot;, &amp;quot;worm&amp;quot;],
+  get height() {
+    return this.elements.length;
+  },
+  set height(value) {
+    console.log(&amp;quot;Ignoring attempt to set height to&amp;quot;, value);
+  }
+};
+
+console.log(pile.height);
+// → 3
+pile.height = 100;
+// → Ignoring attempt to set height to 100
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;set/get 在这里相当于是&lt;strong&gt;function&lt;/strong&gt;这样的标识符, 后面没有冒号，与*Object.defineProperty*中的有区别，后者是*map*中的一个属性，所以需要加&amp;rdquo;:&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
     </channel>
 </rss>

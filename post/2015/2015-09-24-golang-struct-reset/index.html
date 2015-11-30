@@ -2,35 +2,35 @@
 <html class="no-js" lang="zh-CN">
 <head>
   <base href="http://chenhuaying.github.io/">
-  <title>about - ChenHuaying&#39;s Blog</title>
+  <title>Golang Struct Reset - ChenHuaying&#39;s Blog</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="description" content="about">
+<meta name="description" content="Golang Struct Reset">
 <meta name="author" content="Cyrill Schumacher">
 <meta name="publisher" content="Cyrill Schumacher">
 <meta name="generator" content="http://gohugo.io/"/>
 
-<meta itemprop="name" content="ChenHuaying&#39;s Blog - about">
-<meta itemprop="description" content="about">
+<meta itemprop="name" content="ChenHuaying&#39;s Blog - Golang Struct Reset">
+<meta itemprop="description" content="Golang Struct Reset">
 <meta itemprop="image" content="http://chenhuaying.github.io/wp-content/uploads/schumacher.png">
 
-<meta property="og:title" content="about - ChenHuaying&#39;s Blog" />
+<meta property="og:title" content="Golang Struct Reset - ChenHuaying&#39;s Blog" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://chenhuaying.github.io/about/" />
+<meta property="og:url" content="http://chenhuaying.github.io/post/2015/2015-09-24-golang-struct-reset/" />
 <meta property="og:image" content="http://chenhuaying.github.io/wp-content/uploads/schumacher.png" />
-<meta property="og:description" content="about" />
+<meta property="og:description" content="Golang Struct Reset" />
 
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@flyingpig">
-<meta name="twitter:title" content="about - ChenHuaying&#39;s Blog">
-<meta name="twitter:description" content="about">
+<meta name="twitter:title" content="Golang Struct Reset - ChenHuaying&#39;s Blog">
+<meta name="twitter:description" content="Golang Struct Reset">
 <meta name="twitter:creator" content="@flyingpig">
 <meta name="twitter:image" content="http://chenhuaying.github.io/wp-content/uploads/huaying.png">
 
   <script>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
-  <link rel="canonical" href="http://chenhuaying.github.io/about/">
-  <link rel='shortlink' href="http://chenhuaying.github.io/about/"/>
+  <link rel="canonical" href="http://chenhuaying.github.io/post/2015/2015-09-24-golang-struct-reset/">
+  <link rel='shortlink' href="http://chenhuaying.github.io/post/2015/2015-09-24-golang-struct-reset/"/>
   <link rel="shortcut icon" href="http://chenhuaying.github.io/wp-content/uploads/favicon.png"/>
   
 
@@ -139,6 +139,10 @@
             <div class="page-title pad group">
               <ul class="meta-single group">
                 
+                <li class="category">
+                  <a href="categories/%e6%8a%80%e6%9c%af%e6%96%87%e7%ab%a0" rel="category tag">技术文章</a>
+                </li>
+                
               </ul>
             </div>
 
@@ -148,12 +152,12 @@
                   class="post type-post status-publish format-standard has-post-thumbnail hentry category-australien tag-bondi-beach tag-city2surf tag-sydney">
                 <div class="post-inner group">
 
-                  <h1 class="post-title">about</h1>
+                  <h1 class="post-title">Golang Struct Reset</h1>
 
                   <p class="post-byline">
-                    by  · 2015年11月25日 · 25 Words ·
+                    by  · 2015年09月24日 · 70 Words ·
                     ~1min reading time |
-                    <a href="https://github.com/chenhuaying/hugo-blog/blob/master/content/about.md"
+                    <a href="https://github.com/chenhuaying/hugo-blog/blob/master/content/post/2015/2015-09-24-golang-struct-reset.markdown"
                        target="_blank">Improve on <i class="fa fa-github"></i></a>
                   </p>
 
@@ -162,11 +166,30 @@
                   <div class="entry">
                     <div class="entry-inner">
                       
-                      
+                      <p>直接零赋值</p>
 
-<h2 id="about-me:6083a88ee3411b0d17ce02d738f69d47">About Me</h2>
+<pre><code>type mystrut struct {
+	name string
+	data interface{}
+}
 
-<p>一个不喜欢写博客的人，开始学习总结并整理成文。</p>
+ins := &amp;mystruct{
+	name: &quot;Golang newbie&quot;
+	data: &quot;string data&quot;
+}
+
+ins = &amp;mystruct{}
+</code></pre>
+
+<p>或者用反射(<strong>reflect</strong>)清零</p>
+
+<pre><code>func clear(v interface{}) {
+	p := reflect.ValueOf(v).Elem()
+	p.Set(reflect.Zero(p.Type()))
+}
+</code></pre>
+
+<p>如果传入的参数不是指针会直接pannic</p>
 
                       
                     </div>
@@ -183,6 +206,8 @@
 
               <p class="post-tags">
                 <span>Tags:</span>
+                
+                <a rel="tag" href="http://chenhuaying.github.io/tags/Go">Go</a>
                 
               </p>
 
@@ -204,6 +229,22 @@
         
         
         
+            <li class="related post-hover">
+                <article class="post type-post status-publish format-standard has-post-thumbnail hentry">
+
+                  <div class="related-inner">
+                    <h4 class="post-title">
+                      <a href="http://chenhuaying.github.io/post/2015/2015-10-21-something-with-golang/" rel="bookmark"
+                         title="Something With Golang">Something With Golang</a>
+                    </h4>
+                    <div class="post-meta group">
+                      <p class="post-date">21 October 2015</p>
+                    </div>
+                  </div>
+                </article>
+
+            </li>
+        
     
         
         
@@ -221,9 +262,9 @@
   <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'chenhuaying';
-    var disqus_identifier = 'http:\/\/chenhuaying.github.io\/about\/';
-    var disqus_title = 'about';
-    var disqus_url = 'http:\/\/chenhuaying.github.io\/about\/';
+    var disqus_identifier = 'http:\/\/chenhuaying.github.io\/post\/2015\/2015-09-24-golang-struct-reset\/';
+    var disqus_title = 'Golang Struct Reset';
+    var disqus_url = 'http:\/\/chenhuaying.github.io\/post\/2015\/2015-09-24-golang-struct-reset\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -281,19 +322,19 @@
     <ul class="post-nav group">
       <li class="next">
         
-        <a href="http://chenhuaying.github.io/post/2015/2015-10-21-something-with-golang/" rel="next">
+        <a href="http://chenhuaying.github.io/post/2015/2015-09-09-simple-webrtc/" rel="next">
           <i class="fa fa-chevron-right"></i>
           <strong>Next post</strong>
-          <span>Something With Golang</span>
+          <span>Simple WebRTC</span>
         </a>
         
       </li>
       <li class="previous">
         
-        <a href="http://chenhuaying.github.io/post/2015/2015-11-28-Helloworld/" rel="prev">
+        <a href="http://chenhuaying.github.io/post/2015/2015-10-21-something-with-golang/" rel="prev">
           <i class="fa fa-chevron-left"></i>
           <strong>Previous Post</strong>
-          <span>Hello world</span>
+          <span>Something With Golang</span>
         </a>
         
       </li>
@@ -367,27 +408,9 @@
         <p class="post-tags">
           
               
-              <a rel="tag" href="tags/go/"
-                 class="tag-link-2"
-                 title="2 Posts">go</a>
+                <a rel="tag" href="tags/go/">Go</a>
               
-              <a rel="tag" href="tags/javascript/"
-                 class="tag-link-2"
-                 title="2 Posts">javascript</a>
-              
-              <a rel="tag" href="tags/webrtc/"
-                 class="tag-link-1"
-                 title="1 Posts">webrtc</a>
-              
-              <a rel="tag" href="tags/%e5%bc%80%e7%af%87/"
-                 class="tag-link-1"
-                 title="1 Posts">开篇</a>
-              
-              <a rel="tag" href="tags/%e6%84%9f%e6%83%b3/"
-                 class="tag-link-1"
-                 title="1 Posts">感想</a>
-              
-          
+            
         </p>
       </div>
     </div>

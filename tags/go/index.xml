@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Go on ChenHuaying&#39;s Blog</title>
+        <link>http://chenhuaying.github.io/tags/go/</link>
+        <language>en-US</language>
+        <author>Cyrill at Schumacher dot fm</author>
+        <rights>Copyright (c) 2014, Cyrill Schumacher; all rights reserved.</rights>
+        <updated>Wed, 21 Oct 2015 17:11:27 CST</updated>
+        
+        <item>
+            <title>Something With Golang</title>
+            <link>http://chenhuaying.github.io/post/2015/2015-10-21-something-with-golang/</link>
+            <pubDate>Wed, 21 Oct 2015 17:11:27 CST</pubDate>
+            <author>Cyrill at Schumacher dot fm</author>
+            <guid>http://chenhuaying.github.io/post/2015/2015-10-21-something-with-golang/</guid>
+            <description>
+
+&lt;h3 id=&#34;glog:0ba069f7990e94ac53e229e899745a36&#34;&gt;glog&lt;/h3&gt;
+
+&lt;h4 id=&#34;vmodule-选项:0ba069f7990e94ac53e229e899745a36&#34;&gt;vmodule 选项&lt;/h4&gt;
+
+&lt;h3 id=&#34;数组vs切片:0ba069f7990e94ac53e229e899745a36&#34;&gt;数组vs切片&lt;/h3&gt;
+
+&lt;p&gt;数组与切片不是一个类型，在以切片为参数的函数时，需要将数组转换为切片, 方法如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;array := [...]int{1, 2, 3}
+func testFunc(a []int) {
+  // do something
+}
+
+testFunc(array[:])
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        </item>
+        
+        <item>
+            <title>Golang Struct Reset</title>
+            <link>http://chenhuaying.github.io/post/2015/2015-09-24-golang-struct-reset/</link>
+            <pubDate>Thu, 24 Sep 2015 12:20:03 CST</pubDate>
+            <author>Cyrill at Schumacher dot fm</author>
+            <guid>http://chenhuaying.github.io/post/2015/2015-09-24-golang-struct-reset/</guid>
+            <description>&lt;p&gt;直接零赋值&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;type mystrut struct {
+	name string
+	data interface{}
+}
+
+ins := &amp;amp;mystruct{
+	name: &amp;quot;Golang newbie&amp;quot;
+	data: &amp;quot;string data&amp;quot;
+}
+
+ins = &amp;amp;mystruct{}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或者用反射(&lt;strong&gt;reflect&lt;/strong&gt;)清零&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func clear(v interface{}) {
+	p := reflect.ValueOf(v).Elem()
+	p.Set(reflect.Zero(p.Type()))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果传入的参数不是指针会直接pannic&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

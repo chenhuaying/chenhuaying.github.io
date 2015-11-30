@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Webrtc on ChenHuaying&#39;s Blog</title>
+        <link>http://chenhuaying.github.io/tags/webrtc/</link>
+        <language>en-US</language>
+        <author>Cyrill at Schumacher dot fm</author>
+        <rights>Copyright (c) 2014, Cyrill Schumacher; all rights reserved.</rights>
+        <updated>Wed, 09 Sep 2015 17:10:18 CST</updated>
+        
+        <item>
+            <title>Simple WebRTC</title>
+            <link>http://chenhuaying.github.io/post/2015/2015-09-09-simple-webrtc/</link>
+            <pubDate>Wed, 09 Sep 2015 17:10:18 CST</pubDate>
+            <author>Cyrill at Schumacher dot fm</author>
+            <guid>http://chenhuaying.github.io/post/2015/2015-09-09-simple-webrtc/</guid>
+            <description>
+
+&lt;h3 id=&#34;step1:45182077ebf5fde33b240d908544e8a6&#34;&gt;Step1&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;html-&amp;gt;body中添加&lt;code&gt;&amp;lt;video /&amp;gt;&lt;/code&gt;，在JS中用&lt;code&gt;document.querySelector(&amp;quot;video&amp;quot;);&lt;/code&gt;可以获取到该标签&lt;/li&gt;
+&lt;li&gt;JS中添加如下代码既可以操作视频流&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var constrains = {video:  {mandatory: {
+      maxWidth: 640,
+      maxHeight: 360 
+}}};
+
+function successCallback(localMediaStream) {
+    window.stream = localMediaStream;
+    var video = document.querySelector(&amp;quot;video&amp;quot;);
+    video.src = window.URL.createObjectURL(localMediaStream);
+    video.play();
+}
+
+function errorCallback(error) {
+    console.log(&amp;quot;navigator.getUserMedia error: &amp;quot;, error);
+}
+
+getUserMedia(constrains, successCallback, errorCallback);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;window.stream = localMediaStream;&lt;/code&gt; 将stream导出到&lt;strong&gt;window&lt;/strong&gt;中，可以省略&lt;/p&gt;
+
+&lt;p&gt;这一步只是设置本地视频的基本步骤，显示如何使用本地摄像头，还不牵涉到端对端的交互。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
