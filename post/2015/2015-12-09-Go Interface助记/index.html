@@ -2,39 +2,37 @@
 <html class="no-js" lang="zh-CN">
 <head>
   <base href="http://chenhuaying.github.io/">
-  <title>开篇 - ChenHuaying&#39;s Blog</title>
+  <title>Go Interface助记 - ChenHuaying&#39;s Blog</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="description" content="开篇">
+<meta name="description" content="Go Interface助记">
 <meta name="author" content="Cyrill Schumacher">
 <meta name="publisher" content="Cyrill Schumacher">
 <meta name="generator" content="http://gohugo.io/"/>
 
-<meta itemprop="name" content="ChenHuaying&#39;s Blog - 开篇">
-<meta itemprop="description" content="开篇">
+<meta itemprop="name" content="ChenHuaying&#39;s Blog - Go Interface助记">
+<meta itemprop="description" content="Go Interface助记">
 <meta itemprop="image" content="http://chenhuaying.github.io/wp-content/uploads/schumacher.png">
 
-<meta property="og:title" content="开篇 - ChenHuaying&#39;s Blog" />
+<meta property="og:title" content="Go Interface助记 - ChenHuaying&#39;s Blog" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://chenhuaying.github.io/tags/E5BC80E7AF87/" />
+<meta property="og:url" content="http://chenhuaying.github.io/post/2015/2015-12-09-Go%20Interface%E5%8A%A9%E8%AE%B0/" />
 <meta property="og:image" content="http://chenhuaying.github.io/wp-content/uploads/schumacher.png" />
-<meta property="og:description" content="开篇" />
+<meta property="og:description" content="Go Interface助记" />
 
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@flyingpig">
-<meta name="twitter:title" content="开篇 - ChenHuaying&#39;s Blog">
-<meta name="twitter:description" content="开篇">
+<meta name="twitter:title" content="Go Interface助记 - ChenHuaying&#39;s Blog">
+<meta name="twitter:description" content="Go Interface助记">
 <meta name="twitter:creator" content="@flyingpig">
 <meta name="twitter:image" content="http://chenhuaying.github.io/wp-content/uploads/huaying.png">
 
   <script>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
-  <link rel="canonical" href="http://chenhuaying.github.io/tags/E5BC80E7AF87/">
-  <link rel='shortlink' href="http://chenhuaying.github.io/tags/E5BC80E7AF87/"/>
+  <link rel="canonical" href="http://chenhuaying.github.io/post/2015/2015-12-09-Go%20Interface%E5%8A%A9%E8%AE%B0/">
+  <link rel='shortlink' href="http://chenhuaying.github.io/post/2015/2015-12-09-Go%20Interface%E5%8A%A9%E8%AE%B0/"/>
   <link rel="shortcut icon" href="http://chenhuaying.github.io/wp-content/uploads/favicon.png"/>
   
-<link href="http://chenhuaying.github.io/tags/%E5%BC%80%E7%AF%87/index.xml" rel="alternate" type="application/rss+xml" title="ChenHuaying&#39;s Blog"/>
-
 
 <link rel="stylesheet" id="human-style-css" href="wp-content/themes/hueman/style.css" type="text/css" media="all"/>
 <link rel="stylesheet" id="human-style-css2" href="wp-content/themes/hueman-child/style.css" type="text/css" media="all"/>
@@ -47,8 +45,7 @@
 
 </head>
 
-<body class="archive category col-3cm full-width topbar-enabled chrome">
-
+<body class="single single-post single-format-standard col-3cm full-width topbar-enabled chrome">
 <div id="wrapper">
   <header id="header">
 
@@ -140,45 +137,244 @@
         <div class="main-inner group">
           <section class="content">
             <div class="page-title pad group">
-              <h1><i class="fa fa-folder-open"></i>Posts with the tag: <span>开篇</span></h1>
+              <ul class="meta-single group">
+                
+                <li class="category">
+                  <a href="categories/%e6%8a%80%e6%9c%af%e6%96%87%e7%ab%a0" rel="category tag">技术文章</a>
+                </li>
+                
+              </ul>
             </div>
+
             <div class="pad group">
 
-              <div class="post-list group">
+              <article
+                  class="post type-post status-publish format-standard has-post-thumbnail hentry category-australien tag-bondi-beach tag-city2surf tag-sydney">
+                <div class="post-inner group">
+
+                  <h1 class="post-title">Go Interface助记</h1>
+
+                  <p class="post-byline">
+                    by  · 2015年12月09日 · 863 Words ·
+                    ~2min reading time |
+                    <a href="https://github.com/chenhuaying/hugo-blog/blob/master/content/post/2015/2015-12-09-Go%20Interface%e5%8a%a9%e8%ae%b0.md"
+                       target="_blank">Improve on <i class="fa fa-github"></i></a>
+                  </p>
+
+                  <div class="clear"></div>
+
+                  <div class="entry">
+                    <div class="entry-inner">
+                      
+                      <p>Go语言的interface(接口)灵活性很大，也就是Go语言发明者说的Duck类型，理论上简单直白，但是对于我这个半路学习编程的人来说还是犯了一个错误，而且还是多次，这引起了我的重视，决定记录下来。虽然这显得很Low，但没办法，实事求是比较重要。</p>
+
+<p>先前，理解interface是把它当作一个指针，初始化为nil。按照C语言的写法，将一个NULL赋值给一个指针，该指针也是NULL，先看看C语言的代码片段:</p>
+
+<pre><code class="language-c">typedef struct yellowDuck_s {
+  char name[32];
+  } yellowDuck;
+}
+
+int main(int argc, char *argv[])
+{
+  void *duck = NULL;
+
+  if (duck == NULL) {
+    printf(&quot;%s\n&quot;, &quot;no duck&quot;);  // 输出为no duck
+  }
+
+  yellowDuck *yd = NULL;
   
+  duck = yd;
+  if (duck == NULL) {
+    printf(&quot;%s\n&quot;, &quot;no duck&quot;);  // 输出为no duck
+  }
+  return 0;
+}
+
+</code></pre>
+
+<p>指针指向的地址为NULL，<code>ptr == NULL</code> 这样的判断结果都为true。</p>
+
+<p>Go语言这么做会出现问题，<code>interface == nil</code>的结果为false，在此处犯了几次错误，引起了一些bug，做了些测试仍然绕不过这个弯，没有理论背景，不知道如何理解。</p>
+
+<pre><code class="language-go">type duck interface {
+  Say()
+}
+
+type yellowDuck struct {
+  name string
+}
+
+type duckHose struct {
+  d duck
+}
+
+func (d *yellowDuck) Say() {
+  fmt.Println(d.name, &quot;GaGa......&quot;)
+}
+
+func main() {
+  var d duck
   
-  <div class="post-row">
-    <article class="post type-post status-publish format-standard has-post-thumbnail hentry group">
-  <div class="post-inner post-hover">
-    <div class="post-meta group">
-  <p class="post-category">
+  fmt.Printf(&quot;%T\n&quot;, d)          // 输出为&lt;nil&gt;
+  if d == nil {
+    fmt.Println(&quot;no duck&quot;)       // 输出为: no duck
+  }
+  
+  var d1 *yellowDuck
+  var d2 duck
+  d2 = d1
+  fmt.Printf(&quot;%T %T\n&quot;, d2, d1)  // 输出为*main.yellowDuck *main.yellowDuck
+  if d2 == nil {
+    fmt.Println(&quot;no duck here&quot;)  // 此处不输出，因为d2 == nil条件判断为false
+  }
+  
+  d = &amp;yellowDuck{name: &quot;xiaohuangya&quot;}
+  d.Say()
+  
+  h := &amp;duckHose{d: d1}
+  if h.d == nil {
+    fmt.Println(&quot;empty&quot;)         // 此处不输出，同样h.d == nil的结果为false
+  }
+}
+</code></pre>
+
+<p>在intereface判断是否为nil的情况下，出了几次错误，将d1赋值给d2时<code>d2 = d1</code>，<code>d2 == nil</code>的结果<strong>false</strong>，但<code>d1 == nil</code>的结果为<strong>true</strong>，所以不能拿C语言的指针来看待interface，虽然行为上两者很相似，但两者之间处理的差别很大，在赋值时<code>d2 = d1</code>，d2中保存的应该是d1的指针或者引用。所以d2不为nil。</p>
+
+<p>但是，有需要判断<strong>d2</strong>或者<strong>h.d</strong>所指向的值是否为nil，此时需要加<strong>类型断言</strong>才能得到正确的结果</p>
+
+<pre><code class="language-go">...
+
+if d2.(*yellowDuck) == nil {
+  fmt.Println(&quot;no duck here&quot;)    // 输出为: no duck here
+}
+
+...
+
+if h.d.(*yellowDuck) == nil {
+  fmt.Println(&quot;empty&quot;)           // 输出为: empty
+}
+</code></pre>
+
+<p>助记:</p>
+
+<ol>
+<li><p>interface初始化为nil</p></li>
+
+<li><p>赋值时，interface中保存的是右值的地址</p></li>
+
+<li><p>要判断Interface所指向的值是否为nil，要加类型断言</p></li>
+</ol>
+
+<p>注: 助记是没有办法的办法，先这么理解。仍然是C语言的思维，肯定有误差，以后理论基础丰富了再来纠错。</p>
+
+                      
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  
+
+                </div>
+                
+              </article>
+              
+
+              <div class="clear"></div>
+
+              <p class="post-tags">
+                <span>Tags:</span>
+                
+                <a rel="tag" href="http://chenhuaying.github.io/tags/Go">Go</a>
+                
+              </p>
+
+              <h4 class="heading">
+  <i class="fa fa-hand-o-right"></i>Related posts</h4>
+
+    <ul class="related-posts group">
     
-    <a href="categories/%E6%84%9F%E6%83%B3%E9%9A%8F%E7%AC%94/" title="All posts in 感想随笔" rel="category tag">感想随笔</a>
     
-  </p>
-
-  <p class="post-date">2015年11月28日</p>
-</div>
-
-<h2 class="post-title">
-  <a href="http://chenhuaying.github.io/post/2015/2015-11-28-Helloworld/" rel="bookmark" title="Hello world">Hello world</a>
-</h2>
-
-<div class="entry excerpt">
-  <p>作为程序员经典的开篇Hello World，本篇也遵循行业一致规则以Hello World开头。虽然有牵强附会之感，但也希望有一个好的缘起，像学</p>
-</div>
-
-
-  </div>
-  
-</article>
-
-
     
-  
-</div>
+        
+        
+        
+    
+        
+        
+        
+    
+        
+        
+        
+    
+        
+        
+        
+            <li class="related post-hover">
+                <article class="post type-post status-publish format-standard has-post-thumbnail hentry">
 
+                  <div class="related-inner">
+                    <h4 class="post-title">
+                      <a href="http://chenhuaying.github.io/post/2015/2015-10-21-something-with-golang/" rel="bookmark"
+                         title="Something With Golang">Something With Golang</a>
+                    </h4>
+                    <div class="post-meta group">
+                      <p class="post-date">21 October 2015</p>
+                    </div>
+                  </div>
+                </article>
+
+            </li>
+        
+    
+        
+        
+        
+            <li class="related post-hover">
+                <article class="post type-post status-publish format-standard has-post-thumbnail hentry">
+
+                  <div class="related-inner">
+                    <h4 class="post-title">
+                      <a href="http://chenhuaying.github.io/post/2015/2015-09-24-golang-struct-reset/" rel="bookmark"
+                         title="Golang Struct Reset">Golang Struct Reset</a>
+                    </h4>
+                    <div class="post-meta group">
+                      <p class="post-date">24 September 2015</p>
+                    </div>
+                  </div>
+                </article>
+
+            </li>
+        
+    
+    </ul>
+
+
+
+              <section id="comments" class="themeform">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'chenhuaying';
+    var disqus_identifier = 'http:\/\/chenhuaying.github.io\/post\/2015\/2015-12-09-Go%20Interface%E5%8A%A9%E8%AE%B0\/';
+    var disqus_title = 'Go Interface助记';
+    var disqus_url = 'http:\/\/chenhuaying.github.io\/post\/2015\/2015-12-09-Go%20Interface%E5%8A%A9%E8%AE%B0\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+              
             </div>
+
+
           </section>
           <div class="sidebar s1">
 
@@ -217,7 +413,22 @@
 
     </div>
 
-    <div class="widget widget_recent_entries sidebarLeftCategories"><h3>Last posts</h3>
+    <ul class="post-nav group">
+      <li class="next">
+        
+        <a href="http://chenhuaying.github.io/post/2015/2015-11-28-Helloworld/" rel="next">
+          <i class="fa fa-chevron-right"></i>
+          <strong>Next post</strong>
+          <span>Hello world</span>
+        </a>
+        
+      </li>
+      <li class="previous">
+        
+      </li>
+    </ul>
+
+    <div class="widget widget_recent_entries sidebarLeft"><h3>Last Posts</h3>
       <ul>
         
         <li><a href="http://chenhuaying.github.io/post/2015/2015-12-09-Go%20Interface%E5%8A%A9%E8%AE%B0/">Go Interface助记</a></li>
@@ -241,6 +452,7 @@
         </div>
       </form>
     </div>
+
   </div>
   
 </div>
@@ -284,27 +496,9 @@
         <p class="post-tags">
           
               
-              <a rel="tag" href="tags/go/"
-                 class="tag-link-3"
-                 title="3 Posts">go</a>
+                <a rel="tag" href="tags/go/">Go</a>
               
-              <a rel="tag" href="tags/javascript/"
-                 class="tag-link-2"
-                 title="2 Posts">javascript</a>
-              
-              <a rel="tag" href="tags/webrtc/"
-                 class="tag-link-1"
-                 title="1 Posts">webrtc</a>
-              
-              <a rel="tag" href="tags/%e5%bc%80%e7%af%87/"
-                 class="tag-link-1"
-                 title="1 Posts">开篇</a>
-              
-              <a rel="tag" href="tags/%e6%84%9f%e6%83%b3/"
-                 class="tag-link-1"
-                 title="1 Posts">感想</a>
-              
-          
+            
         </p>
       </div>
     </div>
@@ -417,3 +611,4 @@
 
 </body>
 </html>
+

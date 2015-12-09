@@ -6,7 +6,118 @@
         <language>en-US</language>
         <author>Cyrill at Schumacher dot fm</author>
         <rights>Copyright (c) 2014, Cyrill Schumacher; all rights reserved.</rights>
-        <updated>Sat, 28 Nov 2015 10:49:12 CST</updated>
+        <updated>Wed, 09 Dec 2015 12:57:11 CST</updated>
+        
+        <item>
+            <title>Go Interface助记</title>
+            <link>http://chenhuaying.github.io/post/2015/2015-12-09-Go%20Interface%E5%8A%A9%E8%AE%B0/</link>
+            <pubDate>Wed, 09 Dec 2015 12:57:11 CST</pubDate>
+            <author>Cyrill at Schumacher dot fm</author>
+            <guid>http://chenhuaying.github.io/post/2015/2015-12-09-Go%20Interface%E5%8A%A9%E8%AE%B0/</guid>
+            <description>&lt;p&gt;Go语言的interface(接口)灵活性很大，也就是Go语言发明者说的Duck类型，理论上简单直白，但是对于我这个半路学习编程的人来说还是犯了一个错误，而且还是多次，这引起了我的重视，决定记录下来。虽然这显得很Low，但没办法，实事求是比较重要。&lt;/p&gt;
+
+&lt;p&gt;先前，理解interface是把它当作一个指针，初始化为nil。按照C语言的写法，将一个NULL赋值给一个指针，该指针也是NULL，先看看C语言的代码片段:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;typedef struct yellowDuck_s {
+  char name[32];
+  } yellowDuck;
+}
+
+int main(int argc, char *argv[])
+{
+  void *duck = NULL;
+
+  if (duck == NULL) {
+    printf(&amp;quot;%s\n&amp;quot;, &amp;quot;no duck&amp;quot;);  // 输出为no duck
+  }
+
+  yellowDuck *yd = NULL;
+  
+  duck = yd;
+  if (duck == NULL) {
+    printf(&amp;quot;%s\n&amp;quot;, &amp;quot;no duck&amp;quot;);  // 输出为no duck
+  }
+  return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;指针指向的地址为NULL，&lt;code&gt;ptr == NULL&lt;/code&gt; 这样的判断结果都为true。&lt;/p&gt;
+
+&lt;p&gt;Go语言这么做会出现问题，&lt;code&gt;interface == nil&lt;/code&gt;的结果为false，在此处犯了几次错误，引起了一些bug，做了些测试仍然绕不过这个弯，没有理论背景，不知道如何理解。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;type duck interface {
+  Say()
+}
+
+type yellowDuck struct {
+  name string
+}
+
+type duckHose struct {
+  d duck
+}
+
+func (d *yellowDuck) Say() {
+  fmt.Println(d.name, &amp;quot;GaGa......&amp;quot;)
+}
+
+func main() {
+  var d duck
+  
+  fmt.Printf(&amp;quot;%T\n&amp;quot;, d)          // 输出为&amp;lt;nil&amp;gt;
+  if d == nil {
+    fmt.Println(&amp;quot;no duck&amp;quot;)       // 输出为: no duck
+  }
+  
+  var d1 *yellowDuck
+  var d2 duck
+  d2 = d1
+  fmt.Printf(&amp;quot;%T %T\n&amp;quot;, d2, d1)  // 输出为*main.yellowDuck *main.yellowDuck
+  if d2 == nil {
+    fmt.Println(&amp;quot;no duck here&amp;quot;)  // 此处不输出，因为d2 == nil条件判断为false
+  }
+  
+  d = &amp;amp;yellowDuck{name: &amp;quot;xiaohuangya&amp;quot;}
+  d.Say()
+  
+  h := &amp;amp;duckHose{d: d1}
+  if h.d == nil {
+    fmt.Println(&amp;quot;empty&amp;quot;)         // 此处不输出，同样h.d == nil的结果为false
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在intereface判断是否为nil的情况下，出了几次错误，将d1赋值给d2时&lt;code&gt;d2 = d1&lt;/code&gt;，&lt;code&gt;d2 == nil&lt;/code&gt;的结果&lt;strong&gt;false&lt;/strong&gt;，但&lt;code&gt;d1 == nil&lt;/code&gt;的结果为&lt;strong&gt;true&lt;/strong&gt;，所以不能拿C语言的指针来看待interface，虽然行为上两者很相似，但两者之间处理的差别很大，在赋值时&lt;code&gt;d2 = d1&lt;/code&gt;，d2中保存的应该是d1的指针或者引用。所以d2不为nil。&lt;/p&gt;
+
+&lt;p&gt;但是，有需要判断&lt;strong&gt;d2&lt;/strong&gt;或者&lt;strong&gt;h.d&lt;/strong&gt;所指向的值是否为nil，此时需要加&lt;strong&gt;类型断言&lt;/strong&gt;才能得到正确的结果&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;...
+
+if d2.(*yellowDuck) == nil {
+  fmt.Println(&amp;quot;no duck here&amp;quot;)    // 输出为: no duck here
+}
+
+...
+
+if h.d.(*yellowDuck) == nil {
+  fmt.Println(&amp;quot;empty&amp;quot;)           // 输出为: empty
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;助记:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;interface初始化为nil&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;赋值时，interface中保存的是右值的地址&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;要判断Interface所指向的值是否为nil，要加类型断言&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;注: 助记是没有办法的办法，先这么理解。仍然是C语言的思维，肯定有误差，以后理论基础丰富了再来纠错。&lt;/p&gt;
+</description>
+        </item>
         
         <item>
             <title>Hello world</title>
