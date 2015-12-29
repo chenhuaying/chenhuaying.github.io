@@ -155,7 +155,7 @@
                   <h1 class="post-title">objective-c学习笔记</h1>
 
                   <p class="post-byline">
-                    by  · 2015年12月29日 · 1475 Words ·
+                    by  · 2015年12月29日 · 1489 Words ·
                     ~3min reading time |
                     <a href="https://github.com/chenhuaying/hugo-blog/blob/master/content/post/2015/2015-12-29-objective-c%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0.md"
                        target="_blank">Improve on <i class="fa fa-github"></i></a>
@@ -232,15 +232,15 @@
 
 <pre><code>@interface NewClass : fatherClass
 {
-   memberDeclarations;
+   memberDeclarations;  // 成员变量声明
 }
-methodDeclarations;
+methodDeclarations;      // 成员函数声明
 @end
 </code></pre></li>
 
 <li><p>属性
 @property
-自动生成setter/getter的声明，定义的需要在定义部分使用@synthesize
+自动生成setter/getter的声明，定义的需要在定义部分使用@synthesize<br />
 <code>@property int x</code> 自动生成</p>
 
 <pre><code>-(void) setX: (int) a;
@@ -251,17 +251,19 @@ methodDeclarations;
 
 <ul>
 <li>冒号(<strong>:</strong>)连接参数</li>
-<li>冒号连接的参数名，是函数签名的一部分，如下面的<strong>over</strong>
-<code>-(void) setTo: (int) n over: (int) d</code>
-调用时采用如下形式: <code>[instance setTo: 1 over: 3]</code></li>
+<li>冒号连接的参数名，是函数签名的一部分，如下面的<strong>over</strong><br />
+<code>-(void) setTo: (int) n over: (int) d</code><br />
+调用时采用如下形式:<br />
+        <code>[instance setTo: 1 over: 3]</code></li>
 </ul></li>
 
-<li><p>不带参数名的方法
-  <code>-(void) set: (int) n : (int) d</code>
-  调用形式: <code>[instance set: 1 : 3]</code></p></li>
+<li><p>不带参数名的方法<br />
+  <code>-(void) set: (int) n : (int) d</code><br />
+  调用形式:<br />
+        <code>[instance set: 1 : 3]</code></p></li>
 
-<li><p>@class声明一个类型，在接下来的作用域中就可以直接使用@class声明过的类
-  <code>@class ClassName</code>
+<li><p>@class声明一个类型，在接下来的作用域中就可以直接使用@class声明过的类:
+  <code>@class ClassName</code><br />
   可以用<code>#import &lt;class-interface.h&gt;</code>来代替，但用@class效率更高</p>
 
 <ul>
@@ -275,14 +277,13 @@ methodDeclarations;
 <li><p>定义格式:</p>
 
 <pre><code>@implementation NewClass
-   methodDefinitions;
+   methodDefinitions;  // 成员函数定义
 @end
 </code></pre>
 
 <p>@implementation NewClass: NSObject实现的父类是可选的，通常不用显示的写出，声明必须要有</p></li>
 
-<li><p>属性
-@synthesize
+<li><p>属性@synthesize<br />
 <code>@synthesize x</code>自动生成</p>
 
 <pre><code>-(void) setX: (int) a
@@ -433,17 +434,20 @@ f = c
 
 <h3 id="类对象class-object:fdd26320f49682be3509ea9d4a92ee2f">类对象class-object</h3>
 
-<p>类对象通常是由class方法产生的对象，如：<code>[ClassName/(an instance of ClassName) class]</code>，都将得到一个ClassName类对象
-有如下操作</p>
+<p>类对象通常是由class方法产生的对象，如：<br />
+<code>[ClassName/(an instance of ClassName) class]</code><br />
+都将得到一个ClassName类对象</p>
+
+<p>有如下操作:</p>
 
 <ol>
-<li>判断两个对象是否是相同的类
+<li>判断两个对象是否是相同的类<br />
 <code>if ([obj class] == [obj2 class])</code></li>
-<li>某个变量是否是是否是属于一个类，即是否是这个类的成员
+<li>某个变量是否是是否是属于一个类，即是否是这个类的成员<br />
 <code>[aValue isMemberof: [ClassName class]]</code></li>
-<li>一个变量是否是一个类的实例
+<li>一个变量是否是一个类的实例<br />
 <code>[aInstance isKindOf: [ClassName class]]</code></li>
-<li>一个类是否是另一个类的子类
+<li>一个类是否是另一个类的子类<br />
 <code>[ClassName isSubclassOfClass: [BassClassName class]]</code></li>
 </ol>
 
@@ -452,7 +456,7 @@ f = c
 <p>通常由@selector指令产生，如：<code>@selector methodName</code>，将得到一个SEL对象</p>
 
 <ol>
-<li>一个类是否有某一个操作
+<li>一个类是否有某一个操作<br />
 <code>anObject respondsToSelector: @selector methodName</code></li>
 </ol>
 
