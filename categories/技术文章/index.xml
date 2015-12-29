@@ -36,9 +36,12 @@
 &lt;h2 id=&#34;成员函数调用:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;成员函数调用&lt;/h2&gt;
 
 &lt;ol&gt;
-&lt;li&gt;类方法或成员函数调用&lt;code&gt;[className/instance method: parameters]&lt;/code&gt;，
-而C++中的类方法调用&lt;code&gt;className::static method&lt;/code&gt;，或者是
-&lt;code&gt;object.method&lt;/code&gt;与&lt;code&gt;pointer-&amp;gt;method&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;类方法或成员函数调用
+
+&lt;ul&gt;
+&lt;li&gt;objc: &lt;code&gt;[className/instance method: parameters]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;C++: &lt;code&gt;className::static method&lt;/code&gt;，或者是&lt;code&gt;object.method&lt;/code&gt;与&lt;code&gt;pointer-&amp;gt;method&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;li&gt;new实例化对象
 
 &lt;ul&gt;
@@ -68,7 +71,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;返回值：放在负号后面的括号中&lt;strong&gt;-(int), -(double)&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;无返回值：-(void)&lt;/li&gt;
+&lt;li&gt;无返回值：&lt;strong&gt;-(void)&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;li&gt;方法声明：
 &lt;code&gt;-(return type) functionName: (parameter type) parameter;&lt;/code&gt;&lt;/li&gt;

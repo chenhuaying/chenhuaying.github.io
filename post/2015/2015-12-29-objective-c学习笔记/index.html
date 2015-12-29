@@ -155,8 +155,8 @@
                   <h1 class="post-title">objective-c学习笔记</h1>
 
                   <p class="post-byline">
-                    by  · 2015年12月29日 · 1529 Words ·
-                    ~4min reading time |
+                    by  · 2015年12月29日 · 1475 Words ·
+                    ~3min reading time |
                     <a href="https://github.com/chenhuaying/hugo-blog/blob/master/content/post/2015/2015-12-29-objective-c%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0.md"
                        target="_blank">Improve on <i class="fa fa-github"></i></a>
                   </p>
@@ -188,9 +188,12 @@
 <h2 id="成员函数调用:fdd26320f49682be3509ea9d4a92ee2f">成员函数调用</h2>
 
 <ol>
-<li>类方法或成员函数调用<code>[className/instance method: parameters]</code>，
-而C++中的类方法调用<code>className::static method</code>，或者是
-<code>object.method</code>与<code>pointer-&gt;method</code></li>
+<li>类方法或成员函数调用
+
+<ul>
+<li>objc: <code>[className/instance method: parameters]</code></li>
+<li>C++: <code>className::static method</code>，或者是<code>object.method</code>与<code>pointer-&gt;method</code></li>
+</ul></li>
 <li>new实例化对象
 
 <ul>
@@ -220,7 +223,7 @@
 
 <ul>
 <li>返回值：放在负号后面的括号中<strong>-(int), -(double)</strong></li>
-<li>无返回值：-(void)</li>
+<li>无返回值：<strong>-(void)</strong></li>
 </ul></li>
 <li>方法声明：
 <code>-(return type) functionName: (parameter type) parameter;</code></li>
