@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Objective C on ChenHuaying&#39;s Blog</title>
+        <link>http://chenhuaying.github.io/tags/objective-c/</link>
+        <language>en-US</language>
+        <author>Cyrill at Schumacher dot fm</author>
+        <rights>Copyright (c) 2014, Cyrill Schumacher; all rights reserved.</rights>
+        <updated>Tue, 29 Dec 2015 14:48:53 CST</updated>
+        
+        <item>
+            <title>objective-c学习笔记</title>
+            <link>http://chenhuaying.github.io/post/2015/2015-12-29-objective-c%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+            <pubDate>Tue, 29 Dec 2015 14:48:53 CST</pubDate>
+            <author>Cyrill at Schumacher dot fm</author>
+            <guid>http://chenhuaying.github.io/post/2015/2015-12-29-objective-c%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+            <description>
+
+&lt;h2 id=&#34;类的定义中的继承与多态:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;类的定义中的继承与多态&lt;/h2&gt;
+
+&lt;p&gt;与C++相似，支持继承、重载&lt;/p&gt;
+
+&lt;h3 id=&#34;多态:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;多态&lt;/h3&gt;
+
+&lt;p&gt;使用abstruct superclass&lt;/p&gt;
+
+&lt;h2 id=&#34;成员变量:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;成员变量&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;获取[instance property]&lt;/li&gt;
+&lt;li&gt;赋值[instance setProperty: value]&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;成员函数调用:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;成员函数调用&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;类方法或成员函数调用 [class/instance method: parameters]
+C++中的类方法 className::static method
+object.method
+pointer-&amp;gt;method&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;new
+objc: [class new]
+c++:  new class&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;objective-c中对函数的调用很一致，c++中实例化与函数调用的形式是不一样的&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;内存分配
+[ClassName alloc]/[ClassName allocate]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;初始化
+[ClassName init]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;内存释放
+[instance release]&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;类定义:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;类定义&lt;/h2&gt;
+
+&lt;h3 id=&#34;声明-interface:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;声明: @interface&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;- 成员函数&lt;/li&gt;
+&lt;li&gt;类方法&lt;/li&gt;
+&lt;li&gt;返回值：放在负号后面的括号中
+-(int), -(double)
+无返回值：
+-(void)&lt;/li&gt;
+&lt;li&gt;方法声明：
+－(return type) functionName: (parameter type) parameter;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;声明格式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;   @interface NewClass : fatherClass
+   {
+       memberDeclarations;
+   }
+   methodDeclarations;
+   @end
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;属性
+@property
+自动生成setter/getter的声明，定义的需要在定义部分使用@synthesize
+&lt;code&gt;@property int x&lt;/code&gt; 自动生成&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-(void) setX: (int) a;
+-(int) X();
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;多参数方法&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;冒号(&lt;strong&gt;:&lt;/strong&gt;)连接参数&lt;/li&gt;
+&lt;li&gt;冒号连接的参数名，是函数签名的一部分，如下面的&lt;strong&gt;over&lt;/strong&gt;
+&lt;code&gt;-(void) setTo: (int) n over: (int) d&lt;/code&gt;
+调用时采用如下形式: &lt;code&gt;[instance setTo: 1 over: 3]&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;不带参数名的方法
+  &lt;code&gt;-(void) set: (int) n : (int) d&lt;/code&gt;
+  调用形式: &lt;code&gt;[instance set: 1 : 3]&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;@class声明一个类型，在接下来的作用域中就可以直接使用@class声明过的类
+  &lt;code&gt;@class ClassName&lt;/code&gt;
+  可以用&lt;code&gt;#import &amp;lt;class-interface.h&amp;gt;&lt;/code&gt;来代替，但用@class效率更高&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;要使用class中的方法，还是得用&lt;strong&gt;import&lt;/strong&gt;方式&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;定义-implement:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;定义: @implement&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;定义格式:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@implementation NewClass
+  methodDefinitions;
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;@implementation NewClass: NSObject实现的父类是可选的，通常不用显示的写出，声明必须要有&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;属性
+@synthesize
+&lt;code&gt;@synthesize x&lt;/code&gt;自动生成
+```
+-(void) setX: (int) a
+{
+   x = a;
+}&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;-(int) X:
+   {
+      return x;
+   }&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+### self
+`[self method]`self表示方法的接收者是对象自身
+在类的定义中访问成员变量不需要用self
+
+### 点运算符
+objective-c 2.0开始可以使用**.**运算符
+1. 获取成员变量值: instance.property
+2. 设置成员变量值: instance.property = value
+
+## 基本数据类型
+1. 内置数据类型
+   * int
+   * float
+   * double
+   * char
+2. 字符串
+   * 普通字符串: &amp;quot;string&amp;quot;
+   * NSString: @&amp;quot;string&amp;quot;
+
+3. 限定
+   * long
+   * long long
+   * short
+   * unsigned
+   * signed
+
+4. id类型
+   * id类型可以存储任意类型的值，有点
+   * id类型是**返回值**、**参数**的默认类型
+   * 多态、动态绑定
+
+### 格式化输出
+NSLog
+* %i %o %#o %x %#x %X %#X
+* %f %e %g
+* %c
+* %@
+
+## 运算符
+### 算术运算
++ - * / %
+
+### 赋值运算
+＝ += -= &amp;amp;= |=
+### 位运算
+&amp;amp; | ^ ~ &amp;gt;&amp;gt; &amp;lt;&amp;lt;
+
+## 循环
+1. for: 与C++相同，支持在语句中声明变量
+2. while
+3. do
+4. break continue
+
+### 条件语句
+Boolean: TRUE/FALSE YES/NO
+1. if
+2. switch
+3. ? : 
+
+## 内存管理
+### 重载dealloc
+1. dealloc函数从NSObject继承而来
+2. 释放继承的父类的内存`[super release]`
+如下示例：
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;-(void) dealloc
+{
+  [x release];
+  [super dealloc];
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;x可以为nil**对象**，这点与C++不同，C++中不能释放null指针所指向的内存地址，也不能用NULL指针调用方法，获取属性等操作，而在objective-c中是**允许**的。
+
+## 多态，动态绑定
+### id类型
+id类型可以指向存储任何类型的值
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;id f;
+Duck *d = [[Duck alloc] init];
+Cat *c = [[Cat alloc] init];&lt;/p&gt;
+
+&lt;p&gt;f = d
+[f say];&lt;/p&gt;
+
+&lt;p&gt;f = c
+[f say];
+```
+这个地方有动态语言的特点，不同于C++&lt;/p&gt;
+
+&lt;h3 id=&#34;类对象class-object:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;类对象class-object&lt;/h3&gt;
+
+&lt;p&gt;类对象通常是由class方法产生的对象，如：&lt;code&gt;[ClassName/(an instance of ClassName) class]&lt;/code&gt;，都将得到一个ClassName类对象
+有如下操作
+1. 判断两个对象是否是相同的类
+   &lt;code&gt;if ([obj class] == [obj2 class])&lt;/code&gt;
+2. 某个变量是否是是否是属于一个类，即是否是这个类的成员
+   &lt;code&gt;[aValue isMemberof: [ClassName class]]&lt;/code&gt;
+3. 一个变量是否是一个类的实例
+   &lt;code&gt;[aInstance isKindOf: [ClassName class]]&lt;/code&gt;
+4. 一个类是否是另一个类的子类
+   &lt;code&gt;[ClassName isSubclassOfClass: [BassClassName class]]&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;sel对象:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;SEL对象&lt;/h3&gt;
+
+&lt;p&gt;通常由@selector指令产生，如：&lt;code&gt;@selector methodName&lt;/code&gt;
+1. 一个类是否有某一个操作
+   &lt;code&gt;anObject respondsToSelector: @selector methodName&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;异常处理:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;异常处理&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;try-catch
+@try {
+statement
+statement
+&amp;hellip;
+}
+@catch (NSException *exception) {
+statement
+statement
+&amp;hellip;
+}&lt;/li&gt;
+&lt;li&gt;@throw抛出异常&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
