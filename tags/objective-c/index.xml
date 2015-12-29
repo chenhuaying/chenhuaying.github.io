@@ -126,8 +126,9 @@ c++:  new class&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;属性
 @synthesize
-&lt;code&gt;@synthesize x&lt;/code&gt;自动生成
-```
+&lt;code&gt;@synthesize x&lt;/code&gt;自动生成&lt;/p&gt;
+
+&lt;p&gt;```
 -(void) setX: (int) a
 {
    x = a;
