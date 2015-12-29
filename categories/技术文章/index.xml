@@ -189,23 +189,20 @@ objective-c中对函数的调用很一致，c++中实例化与函数调用的形
 * %c
 * %@&lt;/p&gt;
 
-&lt;h2 id=&#34;运算符:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;运算符&lt;/h2&gt;
+&lt;h2 id=&#34;表达式:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;表达式&lt;/h2&gt;
 
-&lt;h3 id=&#34;算术运算:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;算术运算&lt;/h3&gt;
+&lt;h3 id=&#34;运算符:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;运算符&lt;/h3&gt;
 
-&lt;ul&gt;
+&lt;ol&gt;
+&lt;li&gt;算术运算&lt;/li&gt;
 &lt;li&gt;- * / %&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;赋值运算
+＝ += -= &amp;amp;= |=&lt;/li&gt;
+&lt;li&gt;位运算
+&amp;amp; | ^ ~ &amp;gt;&amp;gt; &amp;lt;&amp;lt;&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;h3 id=&#34;赋值运算:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;赋值运算&lt;/h3&gt;
-
-&lt;p&gt;＝ += -= &amp;amp;= |=&lt;/p&gt;
-
-&lt;h3 id=&#34;位运算:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;位运算&lt;/h3&gt;
-
-&lt;p&gt;&amp;amp; | ^ ~ &amp;gt;&amp;gt; &amp;lt;&amp;lt;&lt;/p&gt;
-
-&lt;h2 id=&#34;循环:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;循环&lt;/h2&gt;
+&lt;h3 id=&#34;循环:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;循环&lt;/h3&gt;
 
 &lt;ol&gt;
 &lt;li&gt;for: 与C++相同，支持在语句中声明变量&lt;/li&gt;
