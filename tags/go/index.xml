@@ -129,6 +129,8 @@ if h.d.(*yellowDuck) == nil {
 
 &lt;h3 id=&#34;glog:0ba069f7990e94ac53e229e899745a36&#34;&gt;glog&lt;/h3&gt;
 
+&lt;p&gt;修改过的&lt;a href=&#34;http://github.com/chenhuaying/glog&#34;&gt;glog&lt;/a&gt;&lt;/p&gt;
+
 &lt;h4 id=&#34;vmodule-选项:0ba069f7990e94ac53e229e899745a36&#34;&gt;vmodule 选项&lt;/h4&gt;
 
 &lt;h3 id=&#34;数组vs切片:0ba069f7990e94ac53e229e899745a36&#34;&gt;数组vs切片&lt;/h3&gt;
