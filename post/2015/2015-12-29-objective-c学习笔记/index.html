@@ -155,8 +155,8 @@
                   <h1 class="post-title">objective-c学习笔记</h1>
 
                   <p class="post-byline">
-                    by  · 2015年12月29日 · 1489 Words ·
-                    ~3min reading time |
+                    by  · 2015年12月29日 · 2764 Words ·
+                    ~6min reading time |
                     <a href="https://github.com/chenhuaying/hugo-blog/blob/master/content/post/2015/2015-12-29-objective-c%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0.md"
                        target="_blank">Improve on <i class="fa fa-github"></i></a>
                   </p>
@@ -314,6 +314,19 @@ methodDeclarations;      // 成员函数声明
 <li>获取成员变量值: <strong>instance.property</strong></li>
 <li>设置成员变量值: <strong>instance.property = value</strong></li>
 </ol>
+
+<h3 id="初始化:fdd26320f49682be3509ea9d4a92ee2f">初始化</h3>
+
+<p>分配内配后通常要调用初始化方法，一定要正确的初始化<strong>继承</strong>而来的成员变量，首先调用父类的初始化方法，再初始化自己的成员变量</p>
+
+<pre><code>-(MyClass *) initWith: (int) a : (int) b
+{
+	self = [super init];
+	if (self)
+	  [self setA: a withB: b];
+	return self;
+}
+</code></pre>
 
 <h2 id="基本数据类型:fdd26320f49682be3509ea9d4a92ee2f">基本数据类型</h2>
 
@@ -479,6 +492,175 @@ f = c
 
 <li><p>@throw抛出异常</p></li>
 </ol>
+
+<h2 id="作用域:fdd26320f49682be3509ea9d4a92ee2f">作用域</h2>
+
+<h3 id="作用域限定指令:fdd26320f49682be3509ea9d4a92ee2f">作用域限定指令</h3>
+
+<ul>
+<li>@private，只能在该类的方法中使用，其子类也不能使用</li>
+<li>@protected，能在该类及其子类中使用，<strong>默认情况</strong>；C++类的默认情况则是private</li>
+<li>@public，能在声明后的任意位置访问</li>
+<li>@package，包内访问</li>
+</ul>
+
+<h3 id="c类语言作用域:fdd26320f49682be3509ea9d4a92ee2f">C类语言作用域</h3>
+
+<p>与C类语言相似的作用域，意义也相同
+1. 外部变量，extern
+2. 静态变量，static</p>
+
+<h2 id="存储类说明符:fdd26320f49682be3509ea9d4a92ee2f">存储类说明符</h2>
+
+<ol>
+<li>auto，与C++11的auto不同，这里表示的是自动变量，通常指的是局部变量，在一个函数或一个代码块中的变量，可以省略</li>
+<li>const，常量</li>
+<li>volatile，防止编译器优化</li>
+</ol>
+
+<h2 id="数据类型:fdd26320f49682be3509ea9d4a92ee2f">数据类型</h2>
+
+<h3 id="枚举类型:fdd26320f49682be3509ea9d4a92ee2f">枚举类型</h3>
+
+<p>与C语言类似的语法，第一个赋值为0</p>
+
+<pre><code>enum flag {
+	on,
+	off
+};
+</code></pre>
+
+<p>也可以给他们赋值</p>
+
+<pre><code>enum weekDay {
+	monday = 1,
+	tuesday, wednesday, thursday, friday, saturday, sunday
+};
+</code></pre>
+
+<h3 id="别名:fdd26320f49682be3509ea9d4a92ee2f">别名</h3>
+
+<p>typedef，相当于给一个类型取了个别名<br />
+<code>typedef typeName newName</code></p>
+
+<h2 id="分类与协议:fdd26320f49682be3509ea9d4a92ee2f">分类与协议</h2>
+
+<h3 id="分类:fdd26320f49682be3509ea9d4a92ee2f">分类</h3>
+
+<p>用于扩展已有的类型，而无需访问该类的源代码，也就是说可以扩展以二进制形式发布的库！就算是可以访问源代码的类，通过这种方式扩展更安全。</p>
+
+<p>其声明和定义的语法与类的定义非常相似，圆括号中的是分类名。</p>
+
+<p>声明的格式：</p>
+
+<pre><code>@interface ClassName (categoryName)
+-(return type) method: (parameter type) parameter;
+...
+@end
+</code></pre>
+
+<p>声明中不能指定类的父类，否则编译器会报错</p>
+
+<p>定义的格式：</p>
+
+<pre><code>@implementation ClassName (categoryName)
+    // code for category  method implementation
+@end
+</code></pre>
+
+<p>分类中可以重载类中的方法，会影响到该类及其子类，通过<strong>分类</strong>重载类方法要<strong>谨慎</strong>使用;</p>
+
+<p>不必实现分类中的所有方法，可以先定义所有方法，以后再慢慢实现。</p>
+
+<h3 id="协议:fdd26320f49682be3509ea9d4a92ee2f">协议</h3>
+
+<p>协议定义一组方法，遵循该协议的类需要实现这个协议中的<strong>所有</strong>方法，<strong>@optional</strong>指令下的方法<strong>除外</strong></p>
+
+<h4 id="1-声明:fdd26320f49682be3509ea9d4a92ee2f">1. 声明</h4>
+
+<pre><code>@protocol ProtocolName
+// methods declare
+@optional
+// optional methods declare
+@end
+</code></pre>
+
+<h4 id="2-采用协议-遵循协议:fdd26320f49682be3509ea9d4a92ee2f">2. 采用协议/遵循协议</h4>
+
+<p>要让某个类遵循一个协议，在@interface声明时，用&lt;&hellip;&gt;列出协议的名称，多个协议用<strong>,</strong>分隔</p>
+
+<pre><code>@interface ClassName: BaseClass &lt;ProtocaoName, ProtocolName2, ...&gt;
+{
+    // members declare
+}
+// methods declare
+@end 
+</code></pre>
+
+<h4 id="3-分类采用协议:fdd26320f49682be3509ea9d4a92ee2f">3. 分类采用协议</h4>
+
+<pre><code>@interface ClassName (categoryName) &lt;ProtocolName1, ProtocolName2, ...&gt;
+</code></pre>
+
+<h4 id="4-协议扩展:fdd26320f49682be3509ea9d4a92ee2f">4. 协议扩展</h4>
+
+<p>协议采用或遵循协议</p>
+
+<pre><code>@protocol ExtendProtocol &lt;ProtocolName&gt;
+</code></pre>
+
+<h4 id="5-非正式协议:fdd26320f49682be3509ea9d4a92ee2f">5. 非正式协议</h4>
+
+<p>非正式协议或者叫<strong>抽象协议</strong>，其实是一个分类，列出一组方法。如果一个类采用正式协议，必须实现协议下的所有方法。如果采用的是非正式协议这不用实现协议下的所有方法。</p>
+
+<pre><code>@interface ClassName (categoryName)
+// methods declare
+@end
+</code></pre>
+
+<h4 id="6-通知编译器做类型检查:fdd26320f49682be3509ea9d4a92ee2f">6. 通知编译器做类型检查</h4>
+
+<p>在类名称之后的尖括号中添加协议名称，如下：</p>
+
+<pre><code>id &lt;ProtocolName1, ProtocolName2, ...&gt; myObject;
+</code></pre>
+
+<p>在给myObject赋值时，会进行类型检查，如果该值不遵循指定的协议，编译器会报警</p>
+
+<h4 id="7-检查对象是否遵循协议:fdd26320f49682be3509ea9d4a92ee2f">7. 检查对象是否遵循协议</h4>
+
+<pre><code>id myObject;
+...
+if ([myObject conformsToProtocol: @protocol (ProtocolName)]) {
+    // do operation
+}
+</code></pre>
+
+<h4 id="8-聚合或者组合:fdd26320f49682be3509ea9d4a92ee2f">8. 聚合或者组合</h4>
+
+<p>objective-c支持组合的方式扩展，<strong>不支持</strong>嵌入扩展</p>
+
+<h2 id="c语言特性:fdd26320f49682be3509ea9d4a92ee2f">C语言特性</h2>
+
+<p>C语言特性要用C的方式来操作，不要用objective-c的方式操作</p>
+
+<h3 id="宏扩展:fdd26320f49682be3509ea9d4a92ee2f">宏扩展</h3>
+
+<p>与C的宏相同，支持条件编译，定义宏名等，按照C语言的方式理解即可</p>
+
+<h3 id="数组:fdd26320f49682be3509ea9d4a92ee2f">数组</h3>
+
+<h3 id="结构体:fdd26320f49682be3509ea9d4a92ee2f">结构体</h3>
+
+<h3 id="联合:fdd26320f49682be3509ea9d4a92ee2f">联合</h3>
+
+<h3 id="函数:fdd26320f49682be3509ea9d4a92ee2f">函数</h3>
+
+<h3 id="其它语言特性:fdd26320f49682be3509ea9d4a92ee2f">其它语言特性</h3>
+
+<h2 id="总结:fdd26320f49682be3509ea9d4a92ee2f">总结</h2>
+
+<p>objective-c是在C语言的基础上的改进，它们之间有联系，又有区别。objective-c增加了对面向对象编程技术的支持，面向对象部分与C++有些概念相似，但比C++简洁。语言级别的学习先到此告一段落，接下来是Foundation框架的学习，iOS编程的基础。</p>
 
                       
                     </div>

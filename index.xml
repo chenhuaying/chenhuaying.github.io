@@ -163,6 +163,19 @@ methodDeclarations;      // 成员函数声明
 &lt;li&gt;设置成员变量值: &lt;strong&gt;instance.property = value&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
+&lt;h3 id=&#34;初始化:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;初始化&lt;/h3&gt;
+
+&lt;p&gt;分配内配后通常要调用初始化方法，一定要正确的初始化&lt;strong&gt;继承&lt;/strong&gt;而来的成员变量，首先调用父类的初始化方法，再初始化自己的成员变量&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-(MyClass *) initWith: (int) a : (int) b
+{
+	self = [super init];
+	if (self)
+	  [self setA: a withB: b];
+	return self;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h2 id=&#34;基本数据类型:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;基本数据类型&lt;/h2&gt;
 
 &lt;ol&gt;
@@ -327,6 +340,175 @@ f = c
 
 &lt;li&gt;&lt;p&gt;@throw抛出异常&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;h2 id=&#34;作用域:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;作用域&lt;/h2&gt;
+
+&lt;h3 id=&#34;作用域限定指令:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;作用域限定指令&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;@private，只能在该类的方法中使用，其子类也不能使用&lt;/li&gt;
+&lt;li&gt;@protected，能在该类及其子类中使用，&lt;strong&gt;默认情况&lt;/strong&gt;；C++类的默认情况则是private&lt;/li&gt;
+&lt;li&gt;@public，能在声明后的任意位置访问&lt;/li&gt;
+&lt;li&gt;@package，包内访问&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;c类语言作用域:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;C类语言作用域&lt;/h3&gt;
+
+&lt;p&gt;与C类语言相似的作用域，意义也相同
+1. 外部变量，extern
+2. 静态变量，static&lt;/p&gt;
+
+&lt;h2 id=&#34;存储类说明符:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;存储类说明符&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;auto，与C++11的auto不同，这里表示的是自动变量，通常指的是局部变量，在一个函数或一个代码块中的变量，可以省略&lt;/li&gt;
+&lt;li&gt;const，常量&lt;/li&gt;
+&lt;li&gt;volatile，防止编译器优化&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;数据类型:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;数据类型&lt;/h2&gt;
+
+&lt;h3 id=&#34;枚举类型:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;枚举类型&lt;/h3&gt;
+
+&lt;p&gt;与C语言类似的语法，第一个赋值为0&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;enum flag {
+	on,
+	off
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;也可以给他们赋值&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;enum weekDay {
+	monday = 1,
+	tuesday, wednesday, thursday, friday, saturday, sunday
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;别名:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;别名&lt;/h3&gt;
+
+&lt;p&gt;typedef，相当于给一个类型取了个别名&lt;br /&gt;
+&lt;code&gt;typedef typeName newName&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;分类与协议:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;分类与协议&lt;/h2&gt;
+
+&lt;h3 id=&#34;分类:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;分类&lt;/h3&gt;
+
+&lt;p&gt;用于扩展已有的类型，而无需访问该类的源代码，也就是说可以扩展以二进制形式发布的库！就算是可以访问源代码的类，通过这种方式扩展更安全。&lt;/p&gt;
+
+&lt;p&gt;其声明和定义的语法与类的定义非常相似，圆括号中的是分类名。&lt;/p&gt;
+
+&lt;p&gt;声明的格式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface ClassName (categoryName)
+-(return type) method: (parameter type) parameter;
+...
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;声明中不能指定类的父类，否则编译器会报错&lt;/p&gt;
+
+&lt;p&gt;定义的格式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@implementation ClassName (categoryName)
+    // code for category  method implementation
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;分类中可以重载类中的方法，会影响到该类及其子类，通过&lt;strong&gt;分类&lt;/strong&gt;重载类方法要&lt;strong&gt;谨慎&lt;/strong&gt;使用;&lt;/p&gt;
+
+&lt;p&gt;不必实现分类中的所有方法，可以先定义所有方法，以后再慢慢实现。&lt;/p&gt;
+
+&lt;h3 id=&#34;协议:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;协议&lt;/h3&gt;
+
+&lt;p&gt;协议定义一组方法，遵循该协议的类需要实现这个协议中的&lt;strong&gt;所有&lt;/strong&gt;方法，&lt;strong&gt;@optional&lt;/strong&gt;指令下的方法&lt;strong&gt;除外&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;1-声明:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;1. 声明&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;@protocol ProtocolName
+// methods declare
+@optional
+// optional methods declare
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;2-采用协议-遵循协议:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;2. 采用协议/遵循协议&lt;/h4&gt;
+
+&lt;p&gt;要让某个类遵循一个协议，在@interface声明时，用&amp;lt;&amp;hellip;&amp;gt;列出协议的名称，多个协议用&lt;strong&gt;,&lt;/strong&gt;分隔&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface ClassName: BaseClass &amp;lt;ProtocaoName, ProtocolName2, ...&amp;gt;
+{
+    // members declare
+}
+// methods declare
+@end 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;3-分类采用协议:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;3. 分类采用协议&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface ClassName (categoryName) &amp;lt;ProtocolName1, ProtocolName2, ...&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;4-协议扩展:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;4. 协议扩展&lt;/h4&gt;
+
+&lt;p&gt;协议采用或遵循协议&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@protocol ExtendProtocol &amp;lt;ProtocolName&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;5-非正式协议:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;5. 非正式协议&lt;/h4&gt;
+
+&lt;p&gt;非正式协议或者叫&lt;strong&gt;抽象协议&lt;/strong&gt;，其实是一个分类，列出一组方法。如果一个类采用正式协议，必须实现协议下的所有方法。如果采用的是非正式协议这不用实现协议下的所有方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface ClassName (categoryName)
+// methods declare
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;6-通知编译器做类型检查:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;6. 通知编译器做类型检查&lt;/h4&gt;
+
+&lt;p&gt;在类名称之后的尖括号中添加协议名称，如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;id &amp;lt;ProtocolName1, ProtocolName2, ...&amp;gt; myObject;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在给myObject赋值时，会进行类型检查，如果该值不遵循指定的协议，编译器会报警&lt;/p&gt;
+
+&lt;h4 id=&#34;7-检查对象是否遵循协议:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;7. 检查对象是否遵循协议&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;id myObject;
+...
+if ([myObject conformsToProtocol: @protocol (ProtocolName)]) {
+    // do operation
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;8-聚合或者组合:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;8. 聚合或者组合&lt;/h4&gt;
+
+&lt;p&gt;objective-c支持组合的方式扩展，&lt;strong&gt;不支持&lt;/strong&gt;嵌入扩展&lt;/p&gt;
+
+&lt;h2 id=&#34;c语言特性:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;C语言特性&lt;/h2&gt;
+
+&lt;p&gt;C语言特性要用C的方式来操作，不要用objective-c的方式操作&lt;/p&gt;
+
+&lt;h3 id=&#34;宏扩展:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;宏扩展&lt;/h3&gt;
+
+&lt;p&gt;与C的宏相同，支持条件编译，定义宏名等，按照C语言的方式理解即可&lt;/p&gt;
+
+&lt;h3 id=&#34;数组:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;数组&lt;/h3&gt;
+
+&lt;h3 id=&#34;结构体:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;结构体&lt;/h3&gt;
+
+&lt;h3 id=&#34;联合:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;联合&lt;/h3&gt;
+
+&lt;h3 id=&#34;函数:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;函数&lt;/h3&gt;
+
+&lt;h3 id=&#34;其它语言特性:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;其它语言特性&lt;/h3&gt;
+
+&lt;h2 id=&#34;总结:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;总结&lt;/h2&gt;
+
+&lt;p&gt;objective-c是在C语言的基础上的改进，它们之间有联系，又有区别。objective-c增加了对面向对象编程技术的支持，面向对象部分与C++有些概念相似，但比C++简洁。语言级别的学习先到此告一段落，接下来是Foundation框架的学习，iOS编程的基础。&lt;/p&gt;
 </description>
         </item>
         
