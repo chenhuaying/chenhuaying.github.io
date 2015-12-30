@@ -433,6 +433,8 @@ f = c
 @end
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;@optional表示可选协议，遵循该协议的类不是必须实现可选方法；与之对应的是&lt;strong&gt;@required&lt;/strong&gt;&lt;/p&gt;
+
 &lt;h4 id=&#34;2-采用协议-遵循协议:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;2. 采用协议/遵循协议&lt;/h4&gt;
 
 &lt;p&gt;要让某个类遵循一个协议，在@interface声明时，用&amp;lt;&amp;hellip;&amp;gt;列出协议的名称，多个协议用&lt;strong&gt;,&lt;/strong&gt;分隔&lt;/p&gt;
