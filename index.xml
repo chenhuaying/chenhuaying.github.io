@@ -6,7 +6,104 @@
         <language>en-US</language>
         <author>Cyrill at Schumacher dot fm</author>
         <rights>Copyright (c) 2014, Cyrill Schumacher; all rights reserved.</rights>
-        <updated>Tue, 29 Dec 2015 14:48:53 CST</updated>
+        <updated>Mon, 04 Jan 2016 12:40:49 CST</updated>
+        
+        <item>
+            <title>Foundation学习笔记</title>
+            <link>http://chenhuaying.github.io/post/2016/2016-01-04-Foundation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+            <pubDate>Mon, 04 Jan 2016 12:40:49 CST</pubDate>
+            <author>Cyrill at Schumacher dot fm</author>
+            <guid>http://chenhuaying.github.io/post/2016/2016-01-04-Foundation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+            <description>
+
+&lt;h2 id=&#34;foundation:fca372f4ca3c17598ccaeb904e5eb656&#34;&gt;Foundation&lt;/h2&gt;
+
+&lt;p&gt;Foundation为objective-c提供了数字、字符串、数组，字典等数据结构，能像其它高级语言Python/PHP/Go那样操作字符串、数组、字典与集合等。如果不知道怎么写，可以先想想python怎么做的，然后再看看Foundation对应的API。&lt;/p&gt;
+
+&lt;h3 id=&#34;数字:fca372f4ca3c17598ccaeb904e5eb656&#34;&gt;数字&lt;/h3&gt;
+
+&lt;p&gt;NSNumber，需要&lt;code&gt;#import &amp;lt;Foundation/NSValue.h&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;封装了对数字的操作，包括整数，浮点数&lt;/p&gt;
+
+&lt;h3 id=&#34;字符串:fca372f4ca3c17598ccaeb904e5eb656&#34;&gt;字符串&lt;/h3&gt;
+
+&lt;p&gt;NSString，需要&lt;code&gt;#import &amp;lt;Foundation/NSString.h&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;封装字符串操作，有很多类似Python等高级语言里的操作都有&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;不可变字符串，@&amp;ldquo;string&amp;rdquo;生成的是不可变字符串NSConstantString&lt;/li&gt;
+&lt;li&gt;可变字符串，NSMutableString&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;NSMutableString与NSConstantString都是NSString类的子类&lt;/p&gt;
+
+&lt;h3 id=&#34;数组:fca372f4ca3c17598ccaeb904e5eb656&#34;&gt;数组&lt;/h3&gt;
+
+&lt;p&gt;NSArray，需要&lt;code&gt;#import &amp;lt;Foundation/NSArray.h&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;NSArray是不可变数组&lt;/li&gt;
+&lt;li&gt;NSMutableArray是可变数组，是NSArray的子类&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;数组基本操作&lt;/p&gt;
+
+&lt;h4 id=&#34;1-初始化不可变数组:fca372f4ca3c17598ccaeb904e5eb656&#34;&gt;1. 初始化不可变数组&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;NSArray *monthName = [NSArray arrayWithObjects:
+  @&amp;quot;January&amp;quot;, @&amp;quot;February&amp;quot;, @&amp;quot;March&amp;quot;, @&amp;quot;April&amp;quot;,
+	@&amp;quot;May&amp;quot;, @&amp;quot;June&amp;quot;, @&amp;quot;July&amp;quot;, @&amp;quot;August&amp;quot;, @&amp;quot;September&amp;quot;,
+	@&amp;quot;October&amp;quot;, @&amp;quot;November&amp;quot;, @&amp;quot;December&amp;quot;, nil];
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最后一个必须指定为nil，但它不会存储在数组中&lt;/p&gt;
+
+&lt;h4 id=&#34;2-可变数组初始化:fca372f4ca3c17598ccaeb904e5eb656&#34;&gt;2. 可变数组初始化&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;NSMutableArray *myMutableArray = [[NSMutableArray alloc] init]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通过alloc来分配数组可以获得数组的所有权，如果用array方法分配数组，只有它的使用权，它的所有权属于NSMutableArray&lt;strong&gt;有待于测试它的真实含义&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;3-枚举:fca372f4ca3c17598ccaeb904e5eb656&#34;&gt;3. 枚举&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;for ( T *v in myArray ) {
+	...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;字典:fca372f4ca3c17598ccaeb904e5eb656&#34;&gt;字典&lt;/h3&gt;
+
+&lt;p&gt;NSDictionary，需要&lt;code&gt;#import &amp;lt;Foundation/NSDictionary.h&amp;gt;&lt;/code&gt;，字典的Key可以是任何对象，但必须是单值，Value可以是任何对象，不能是nil&lt;/p&gt;
+
+&lt;p&gt;NSMutableDictionary是NSDictionary的子类&lt;/p&gt;
+
+&lt;p&gt;枚举&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;for (T *key in myDict) {
+  [myDict objectForKey: key]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;集合:fca372f4ca3c17598ccaeb904e5eb656&#34;&gt;集合&lt;/h3&gt;
+
+&lt;p&gt;NSSet, 需要&lt;code&gt;#import &amp;lt;Foundation/NSSet.h&amp;gt;&lt;/code&gt;，支持交集与并集的操作&lt;/p&gt;
+
+&lt;p&gt;NSMutableSet是NSSet的子类&lt;/p&gt;
+
+&lt;p&gt;枚举&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;for (T *e in mySet) {
+  [e method]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;还有一种NScountedSet，支持一个集合中有多个值，增加一个count+1，删除一个count-1，如果count为零则删除对象&lt;/p&gt;
+</description>
+        </item>
         
         <item>
             <title>objective-c学习笔记</title>
