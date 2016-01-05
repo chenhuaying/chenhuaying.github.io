@@ -6,7 +6,131 @@
         <language>en-US</language>
         <author>Cyrill at Schumacher dot fm</author>
         <rights>Copyright (c) 2014, Cyrill Schumacher; all rights reserved.</rights>
-        <updated>Mon, 04 Jan 2016 12:40:49 CST</updated>
+        <updated>Mon, 04 Jan 2016 19:16:55 CST</updated>
+        
+        <item>
+            <title>objective-c闭包</title>
+            <link>http://chenhuaying.github.io/post/2016/2016-01-04-objective-c%E9%97%AD%E5%8C%85/</link>
+            <pubDate>Mon, 04 Jan 2016 19:16:55 CST</pubDate>
+            <author>Cyrill at Schumacher dot fm</author>
+            <guid>http://chenhuaying.github.io/post/2016/2016-01-04-objective-c%E9%97%AD%E5%8C%85/</guid>
+            <description>
+
+&lt;p&gt;Objective-C中的闭包叫做Block，目前阶段只学习使用，不分析原理&lt;/p&gt;
+
+&lt;p&gt;Block是C风格的实现方式，可以理解为函数指针，按照函数指针的方式使用闭包。但闭包的定义可以在函数内，比函数灵活。&lt;/p&gt;
+
+&lt;h3 id=&#34;block声明:c48de781c7df3f22ef708366af0071e1&#34;&gt;block声明&lt;/h3&gt;
+
+&lt;p&gt;闭包声明符(&lt;strong&gt;^&lt;/strong&gt;)，声明符是随便发明的名字，也是一种标识符&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;return-type (^ blockName) (parameter type);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;不带参数-不带返回值:c48de781c7df3f22ef708366af0071e1&#34;&gt;不带参数，不带返回值&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;void (^ blockName) (void);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;多参数:c48de781c7df3f22ef708366af0071e1&#34;&gt;多参数&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;return-type (^ blockName) (parameter-type1, parameter-type2, ...);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;block定义:c48de781c7df3f22ef708366af0071e1&#34;&gt;block定义&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;^&lt;/strong&gt;表示闭包&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;blockName = ^(parameter-type parameter) {
+    ...
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最后有个分号，当然一条完整的语句是需要分号的。&lt;/p&gt;
+
+&lt;h4 id=&#34;不带参数-不带返回值-1:c48de781c7df3f22ef708366af0071e1&#34;&gt;不带参数，不带返回值&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;^{
+   ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如上也可以赋值，之后的调用形式:
+    blockName()&lt;/p&gt;
+
+&lt;h4 id=&#34;多参数-1:c48de781c7df3f22ef708366af0071e1&#34;&gt;多参数&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;^ return-type (type1 firstValue, type2 secondValue) {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;闭包捕获变量:c48de781c7df3f22ef708366af0071e1&#34;&gt;闭包捕获变量&lt;/h3&gt;
+
+&lt;p&gt;block能捕获一个代码块内的变量，以&lt;strong&gt;值传递&lt;/strong&gt;的方式传递，也就是说闭包内改变捕获的变量的值，在外部是不可见的。并且在闭包定义后改变这个变量的值，在闭包中仍然是改变前的值。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;int anInteger = 42;
+
+void (^testBlock)(void) = ^{
+    NSLog(@&amp;quot;Integer is: %i&amp;quot;, anInteger);
+};
+
+anInteger = 84;
+
+testBlock();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;运行结果是:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Integer is: 42
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到在闭包内，捕获的变量没有随着后面的赋值儿发生改变，也就是值传递的方式传递捕获变量。&lt;/p&gt;
+
+&lt;h4 id=&#34;共享的方式捕获变量:c48de781c7df3f22ef708366af0071e1&#34;&gt;共享的方式捕获变量&lt;/h4&gt;
+
+&lt;p&gt;以__block方式声明的变量，以&lt;strong&gt;引用&lt;/strong&gt;的方式传递&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;__block int anInteger = 42;
+
+void (^testBlock)(void) = ^{
+    NSLog(@&amp;quot;Integer is: %i&amp;quot;, anInteger);
+};
+
+anInteger = 84;
+
+testBlock();   // 输出: Integer is: 84
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再看一下闭包改变original变量的值的例子&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;__block int anInteger = 42;
+
+void (^testBlock)(void) = ^{
+    NSLog(@&amp;quot;Integer is: %i&amp;quot;, anInteger);
+    anInteger = 100;
+};
+
+testBlock();
+NSLog(@&amp;quot;Value of original variable is now: %i&amp;quot;, anInteger);    // 输出: Value of original variable is now: 100
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到，变量的值改变了&lt;/p&gt;
+
+&lt;h3 id=&#34;以参数的形式传递闭包:c48de781c7df3f22ef708366af0071e1&#34;&gt;以参数的形式传递闭包&lt;/h3&gt;
+
+&lt;p&gt;闭包可以被当作参数来进行传递，如果是在类的成员函数中定义的，可以捕获self，此时要当心&lt;a href=&#34;https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html#//apple_ref/doc/uid/TP40011210-CH8-SW16&#34;&gt;Avoid Strong Reference Cycles when Capturing self&lt;/a&gt;
+问题。&lt;/p&gt;
+
+&lt;h3 id=&#34;typedef命名闭包:c48de781c7df3f22ef708366af0071e1&#34;&gt;typedef命名闭包&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;typedef return-type (^blockName)(parameter-type1, parameter-type2, ...);&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;参考:c48de781c7df3f22ef708366af0071e1&#34;&gt;参考&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html#//apple_ref/doc/uid/TP40011210-CH8-SW2&#34;&gt;Programming with Objective-C&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
         
         <item>
             <title>Foundation学习笔记</title>
