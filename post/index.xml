@@ -504,7 +504,7 @@ methodDeclarations;      // 成员函数声明
 
 &lt;p&gt;x可以为nil&lt;strong&gt;对象&lt;/strong&gt;，这点与C++不同，C++中不能释放null指针所指向的内存地址，也不能用NULL指针调用方法，获取属性等操作，而在objective-c中是&lt;strong&gt;允许&lt;/strong&gt;的。&lt;/p&gt;
 
-&lt;p&gt;但&lt;a href=&#34;https://developer.apple.com/library/mac/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html&#34;&gt;ARC&lt;/a&gt;不需要调用&lt;code&gt;[super dealloc]&lt;/code&gt;通常会产生编译错误。&lt;/p&gt;
+&lt;p&gt;注意: &lt;a href=&#34;https://developer.apple.com/library/mac/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html&#34;&gt;ARC&lt;/a&gt;不需要调用&lt;code&gt;[super dealloc]&lt;/code&gt;(通常会产生编译错误)。&lt;/p&gt;
 
 &lt;h2 id=&#34;多态-动态绑定:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;多态，动态绑定&lt;/h2&gt;
 
