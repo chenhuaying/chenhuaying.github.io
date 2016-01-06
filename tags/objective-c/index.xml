@@ -6,7 +6,16 @@
         <language>en-US</language>
         <author>Cyrill at Schumacher dot fm</author>
         <rights>Copyright (c) 2014, Cyrill Schumacher; all rights reserved.</rights>
-        <updated>Mon, 04 Jan 2016 19:16:55 CST</updated>
+        <updated>Tue, 05 Jan 2016 12:24:27 CST</updated>
+        
+        <item>
+            <title>Objective-C中的文件管理</title>
+            <link>http://chenhuaying.github.io/post/2016/2016-01-05-Objective-C%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/</link>
+            <pubDate>Tue, 05 Jan 2016 12:24:27 CST</pubDate>
+            <author>Cyrill at Schumacher dot fm</author>
+            <guid>http://chenhuaying.github.io/post/2016/2016-01-05-Objective-C%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/</guid>
+            <description></description>
+        </item>
         
         <item>
             <title>objective-c闭包</title>
@@ -494,6 +503,8 @@ methodDeclarations;      // 成员函数声明
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;x可以为nil&lt;strong&gt;对象&lt;/strong&gt;，这点与C++不同，C++中不能释放null指针所指向的内存地址，也不能用NULL指针调用方法，获取属性等操作，而在objective-c中是&lt;strong&gt;允许&lt;/strong&gt;的。&lt;/p&gt;
+
+&lt;p&gt;但&lt;a href=&#34;https://developer.apple.com/library/mac/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html&#34;&gt;ARC&lt;/a&gt;不需要调用&lt;code&gt;[super dealloc]&lt;/code&gt;通常会产生编译错误。&lt;/p&gt;
 
 &lt;h2 id=&#34;多态-动态绑定:fdd26320f49682be3509ea9d4a92ee2f&#34;&gt;多态，动态绑定&lt;/h2&gt;
 

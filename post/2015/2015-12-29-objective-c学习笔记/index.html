@@ -155,7 +155,7 @@
                   <h1 class="post-title">objective-c学习笔记</h1>
 
                   <p class="post-byline">
-                    by  · 2015年12月29日 · 2813 Words ·
+                    by  · 2015年12月29日 · 2846 Words ·
                     ~6min reading time |
                     <a href="https://github.com/chenhuaying/hugo-blog/blob/master/content/post/2015/2015-12-29-objective-c%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0.md"
                        target="_blank">Improve on <i class="fa fa-github"></i></a>
@@ -425,6 +425,8 @@ methodDeclarations;      // 成员函数声明
 </code></pre>
 
 <p>x可以为nil<strong>对象</strong>，这点与C++不同，C++中不能释放null指针所指向的内存地址，也不能用NULL指针调用方法，获取属性等操作，而在objective-c中是<strong>允许</strong>的。</p>
+
+<p>但<a href="https://developer.apple.com/library/mac/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html">ARC</a>不需要调用<code>[super dealloc]</code>通常会产生编译错误。</p>
 
 <h2 id="多态-动态绑定:fdd26320f49682be3509ea9d4a92ee2f">多态，动态绑定</h2>
 
@@ -699,6 +701,26 @@ if ([myObject conformsToProtocol: @protocol (ProtocolName)]) {
 
                   <div class="related-inner">
                     <h4 class="post-title">
+                      <a href="http://chenhuaying.github.io/post/2016/2016-01-05-Objective-C%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="bookmark"
+                         title="Objective-C中的文件管理">Objective-C中的文件管理</a>
+                    </h4>
+                    <div class="post-meta group">
+                      <p class="post-date">5 January 2016</p>
+                    </div>
+                  </div>
+                </article>
+
+            </li>
+        
+    
+        
+        
+        
+            <li class="related post-hover">
+                <article class="post type-post status-publish format-standard has-post-thumbnail hentry">
+
+                  <div class="related-inner">
+                    <h4 class="post-title">
                       <a href="http://chenhuaying.github.io/post/2016/2016-01-04-objective-c%E9%97%AD%E5%8C%85/" rel="bookmark"
                          title="objective-c闭包">objective-c闭包</a>
                     </h4>
@@ -729,10 +751,6 @@ if ([myObject conformsToProtocol: @protocol (ProtocolName)]) {
                 </article>
 
             </li>
-        
-    
-        
-        
         
     
         
@@ -832,6 +850,8 @@ if ([myObject conformsToProtocol: @protocol (ProtocolName)]) {
     <div class="widget widget_recent_entries sidebarLeft"><h3>Last Posts</h3>
       <ul>
         
+        <li><a href="http://chenhuaying.github.io/post/2016/2016-01-05-Objective-C%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/">Objective-C中的文件管理</a></li>
+        
         <li><a href="http://chenhuaying.github.io/post/2016/2016-01-04-objective-c%E9%97%AD%E5%8C%85/">objective-c闭包</a></li>
         
         <li><a href="http://chenhuaying.github.io/post/2016/2016-01-04-Foundation%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Foundation学习笔记</a></li>
@@ -839,8 +859,6 @@ if ([myObject conformsToProtocol: @protocol (ProtocolName)]) {
         <li><a href="http://chenhuaying.github.io/post/2015/2015-12-29-objective-c%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">objective-c学习笔记</a></li>
         
         <li><a href="http://chenhuaying.github.io/post/2015/2015-12-09-Go%20Interface%E5%8A%A9%E8%AE%B0/">Go Interface助记</a></li>
-        
-        <li><a href="http://chenhuaying.github.io/post/2015/2015-11-28-Helloworld/">Hello world</a></li>
         
       </ul>
     </div>
